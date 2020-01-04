@@ -4,7 +4,7 @@ organization := "com.ka2kama"
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file("."))
-  .enablePlugins(PlayScala)
+  .enablePlugins(PlayWeb)
   .disablePlugins(PlayLayoutPlugin)
 
 scalaVersion := "2.13.1"
