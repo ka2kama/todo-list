@@ -15,11 +15,11 @@ abstract class ControllerSpecBase extends SpecBase
 
   val NotFound: Result = Result(ResponseHeader(NOT_FOUND), HttpEntity.NoEntity)
 
-  protected def getResponse[T](request: Request[T])(implicit w: Writeable[T]): Future[Result] = {
+  def getResponse[T](request: Request[T])(implicit w: Writeable[T]): Future[Result] = {
     route(app, request).getOrElse(Future.successful(NotFound))
   }
 
-  protected def getResponse(path: String, method: String = GET, params: Option[Any] = None): Future[Result] = {
+  def getResponse(path: String, method: String = GET, params: Option[Any] = None): Future[Result] = {
     val request = FakeRequest(method, path)
     getResponse(request)
   }
