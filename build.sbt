@@ -9,5 +9,10 @@ lazy val root = (project in file("."))
 
 scalaVersion := "2.13.1"
 
-libraryDependencies += guice
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
+libraryDependencies ++= Seq(
+  guice,
+  evolutions,
+  jdbc,
+  "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
+  "com.h2database" % "h2" % "1.4.200"
+)
