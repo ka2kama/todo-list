@@ -12,7 +12,7 @@ class TodoJsonSupportSpec extends SpecBase {
 
     """デコード時にidをTodoIdに変換したインスタンスを作成する""" in {
       val json = Json.obj(
-        "id" -> 1L.asJson,
+        "id" -> 1.asJson,
         "content" -> "掃除".asJson,
         "state" -> 0.asJson,
       )

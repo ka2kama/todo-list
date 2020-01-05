@@ -2,7 +2,7 @@ package com.ka2kama.application.json
 
 import com.ka2kama.core.{Todo, TodoId}
 import io.circe.generic.semiauto._
-import io.circe.{Decoder, Encoder, HCursor}
+import io.circe.{Decoder, Encoder}
 
 object TodoJsonSupport {
 
@@ -12,15 +12,8 @@ object TodoJsonSupport {
   }
 
   object TodoDecoder extends JsonDecoder[Todo] {
-    implicit val decoder: Decoder[Todo] = (c: HCursor) => {
-      for {
-        id <- c.downField("id").as[Long].map(TodoId)
-        content <- c.downField("content").as[String]
-        state <- c.downField("state").as[Int]
-      } yield {
-        new Todo(id, content, state)
-      }
-    }
+    implicit val idDecoder: Decoder[TodoId] = _.value.as[Long].map(TodoId)
+    implicit val decoder: Decoder[Todo] = deriveDecoder
   }
 
   implicit class TodoEncoderExt(val self: Todo) extends JsonEncoderExt[Todo] {
