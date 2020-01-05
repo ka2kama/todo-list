@@ -1,5 +1,8 @@
 package ka2kama.application
 
+import io.circe.Json
+import io.circe.parser._
+import io.circe.syntax._
 import ka2kama.SpecBase
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.http.{HttpEntity, Writeable}
@@ -9,7 +12,7 @@ import play.api.test.Helpers.{route, _}
 import play.api.test.{FakeRequest, Helpers, Injecting}
 
 import scala.concurrent.Future
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 abstract class ControllerSpecBase extends SpecBase
   with GuiceOneAppPerTest
@@ -26,7 +29,6 @@ abstract class ControllerSpecBase extends SpecBase
     getResponse(request)
   }
 
-  def contentAsJson(of: Future[Result]): Try[JsValue] = {
-    Try(Helpers.contentAsJson(of))
-  }
+  def contentAsCirceJson(of: Future[Result]): Try[Json] =
+    parse(contentAsString(of)).fold(Failure(_), Success(_))
 }
