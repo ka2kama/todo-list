@@ -1,6 +1,7 @@
 package ka2kama.application
 
-import play.api.test.FakeRequest
+import org.scalatest.TryValues._
+import play.api.libs.json.Json
 import play.api.test.Helpers._
 
 class HomeControllerSpec extends ControllerSpecBase {
@@ -13,10 +14,12 @@ class HomeControllerSpec extends ControllerSpecBase {
       status(home) shouldBe 200
     }
 
-    """コンテンツは"Hello World"が返る""" in {
+    """コンテンツはJSONのリストが返る""" in {
       val home = getResponse("/")
 
-      contentAsString(home) shouldBe "Hello World"
+      contentAsJson(home).success.value shouldBe Json.obj(
+        "hello"-> "world",
+        "language" -> "scala")
     }
   }
 }
