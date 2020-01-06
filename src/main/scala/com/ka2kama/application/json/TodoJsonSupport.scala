@@ -6,7 +6,7 @@ import io.circe.{Decoder, Encoder}
 
 object TodoJsonSupport {
 
-  object TodoEncoderExt extends JsonEncoder[Todo] {
+  object TodoEncoder extends JsonEncoder[Todo] {
     implicit val idEncoder: Encoder[TodoId] = Encoder[Long].contramap(_.value)
     implicit val encoder: Encoder[Todo] = deriveEncoder
   }
@@ -17,6 +17,6 @@ object TodoJsonSupport {
   }
 
   implicit class TodoEncoderExt(val self: Todo) extends JsonEncoderExt[Todo] {
-    implicit val encoder: Encoder[Todo] = TodoEncoderExt.encoder
+    implicit val encoder: Encoder[Todo] = TodoEncoder.encoder
   }
 }
