@@ -1,6 +1,6 @@
 package com.ka2kama.application
 
-import com.ka2kama.application.json.TodoJsonSupport.TodoEncoderExt
+import com.ka2kama.application.json.circe.TodoJsonSupportOnCirce.TodoJsonEncoderExt
 import com.ka2kama.core.{Todo, TodoId}
 import javax.inject.Inject
 import play.api.Logger
@@ -8,7 +8,8 @@ import play.api.mvc._
 
 import scala.concurrent.Future
 
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HomeController @Inject()(cc: ControllerComponents)
+    extends AbstractController(cc) {
 
   private val logger = Logger(this.getClass)
 
@@ -21,6 +22,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     logger.debug("list: ")
     val todo = new Todo(TodoId(1), "掃除", 0)
 
-    Future.successful(Ok(todo.asNoSpaceJson))
+    Future.successful(Ok(todo.asJson))
   }
 }

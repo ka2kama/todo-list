@@ -1,14 +1,11 @@
 package com.ka2kama.application.json
 
-import io.circe.Encoder
-import io.circe.syntax._
-
 trait JsonEncoder[A] {
-  implicit val encoder: Encoder[A]
+  def encode(obj: A): String
 }
 
-trait JsonEncoderExt[A] {
-  def self : A
-  implicit val encoder: Encoder[A]
-  def asNoSpaceJson: String = self.asJson.noSpaces
+abstract class JsonEncoderExt[A: JsonEncoder] {
+  def self: A
+  def asJson: String =
+    implicitly[JsonEncoder[A]].encode(self)
 }
