@@ -1,6 +1,6 @@
 import com.google.inject.AbstractModule
-import com.ka2kama.application.json.JsonSupport
-import com.ka2kama.application.json.circe.TodoJsonSupportOnCirce
+import com.ka2kama.application.json.JsonConverter
+import com.ka2kama.application.json.circe.TodoConverterOnCirce
 import com.ka2kama.core.Todo
 import javax.inject._
 import net.codingwell.scalaguice.ScalaModule
@@ -16,6 +16,6 @@ class Module(environment: Environment, configuration: Configuration)
     with ScalaModule {
 
   override def configure(): Unit = {
-    bind[JsonSupport[Todo]].to[TodoJsonSupportOnCirce].in[Singleton]
+    bind[JsonConverter[Todo]].to[TodoConverterOnCirce].in[Singleton]
   }
 }
