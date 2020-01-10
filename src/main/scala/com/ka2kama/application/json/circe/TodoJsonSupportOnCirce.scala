@@ -1,37 +1,25 @@
 package com.ka2kama.application.json.circe
 
-import com.ka2kama.application.json.{
-  JsonDecoder,
-  JsonEncoder,
-  JsonEncoderExt,
-  TodoJsonSupport
-}
+import com.ka2kama.application.json.{JsonDecoder, JsonEncoder, JsonSupport}
 import com.ka2kama.core.{Todo, TodoId}
 import io.circe.generic.auto._
 import io.circe.{Decoder, Encoder}
+import javax.inject.Singleton
 
-object TodoJsonSupportOnCirce extends TodoJsonSupport {
-  import TodoIdJsonSupport.TodoIdJsonEncoder._
-  import TodoIdJsonSupport.TodoIdJsonDecoder._
+@Singleton
+class TodoJsonSupportOnCirce extends JsonSupport[Todo] {
 
-  private object TodoJsonEncoder extends JsonEncoderOnCirce[Todo]
-  private object TodoJsonDecoder extends JsonDecoderOnCirce[Todo]
+  implicit val idEncoder: Encoder[TodoId] = TodoIdJsonEncoder.encoder
+  implicit val idDecoder: Decoder[TodoId] = TodoIdJsonDecoder.decoder
 
-  override implicit val todoJsonEncoder: JsonEncoder[Todo] = TodoJsonEncoder
-  override implicit val todoJsonDecoder: JsonDecoder[Todo] = TodoJsonDecoder
+  override implicit val encoder: JsonEncoder[Todo] = JsonEncoderOnCirce[Todo]
+  override implicit val decoder: JsonDecoder[Todo] = JsonDecoderOnCirce[Todo]
 }
 
-object TodoIdJsonSupport {
+object TodoIdJsonEncoder {
+  implicit val encoder: Encoder[TodoId] = Encoder[Long].contramap(_.value)
+}
 
-  implicit object TodoIdJsonEncoder extends JsonEncoderOnCirce[TodoId] {
-    override implicit val encoder: Encoder[TodoId] =
-      Encoder[Long].contramap(_.value)
-  }
-  implicit object TodoIdJsonDecoder extends JsonDecoderOnCirce[TodoId] {
-    override implicit val decoder: Decoder[TodoId] =
-      _.value.as[Long].map(TodoId)
-  }
-
-  implicit class TodoIdJsonEncoderExt(val self: TodoId)
-      extends JsonEncoderExt[TodoId]
+object TodoIdJsonDecoder {
+  implicit val decoder: Decoder[TodoId] = Decoder[Long].map(TodoId)
 }

@@ -13,3 +13,8 @@ abstract class JsonDecoderOnCirce[A](implicit val decoder: Decoder[A])
 
   def decode(json: Json): Try[A] = json.as[A].toTry
 }
+
+object JsonDecoderOnCirce {
+  def apply[A](implicit decoder: Decoder[A]): JsonDecoderOnCirce[A] =
+    new JsonDecoderOnCirce {}
+}

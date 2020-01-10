@@ -9,3 +9,8 @@ abstract class JsonEncoderOnCirce[A](implicit val encoder: Encoder[A])
   def encode(obj: A): String = to2SpacesJson(obj)
   def to2SpacesJson(obj: A): String = obj.asJson.spaces2
 }
+
+object JsonEncoderOnCirce {
+  def apply[A](implicit encoder: Encoder[A]): JsonEncoderOnCirce[A] =
+    new JsonEncoderOnCirce {}
+}

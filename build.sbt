@@ -17,6 +17,7 @@ libraryDependencies ++= Seq(
   jdbc,
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
   "com.h2database" % "h2" % "1.4.200",
+  "net.codingwell" %% "scala-guice" % "4.2.6",
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,

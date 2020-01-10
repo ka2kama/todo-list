@@ -2,11 +2,11 @@ package com.ka2kama.application.json
 
 import com.ka2kama.SpecBase
 import com.ka2kama.SpecBase.TryOps
-import com.ka2kama.application.json.circe.TodoJsonSupportOnCirce
-import com.ka2kama.application.json.circe.TodoJsonSupportOnCirce.TodoJsonDecoder
 import com.ka2kama.core.{Todo, TodoId}
+import javax.inject.Inject
 
-class TodoJsonSupportSpec extends SpecBase {
+class TodoJsonSupportSpec @Inject()(todoJsonSupport: JsonSupport[Todo])
+    extends SpecBase {
   """デコード""" - {
 
     """デコード時にidをTodoIdに変換したインスタンスを作成する""" in {
@@ -18,7 +18,7 @@ class TodoJsonSupportSpec extends SpecBase {
          | }
         """.stripMargin
 
-      TodoJsonSupportOnCirce.todoJsonDecoder
+      todoJsonSupport.decoder
         .decode(json)
         .successVal shouldBe new Todo(TodoId(1), "掃除", 0)
     }
