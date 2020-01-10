@@ -9,10 +9,10 @@ import play.api.mvc._
 import scala.concurrent.Future
 
 class HomeController @Inject()(cc: ControllerComponents,
-                               todoJsonSupport: JsonConverter[Todo])
+                               todoJsonConverter: JsonConverter[Todo])
     extends AbstractController(cc) {
 
-  import todoJsonSupport.EncoderExt
+  import todoJsonConverter.EncoderExt
 
   private val logger = Logger(this.getClass)
 

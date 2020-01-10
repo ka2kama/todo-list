@@ -5,7 +5,7 @@ import com.ka2kama.SpecBase.TryOps
 import com.ka2kama.core.{Todo, TodoId}
 import javax.inject.Inject
 
-class TodoJsonSupportSpec @Inject()(todoJsonSupport: JsonConverter[Todo])
+class TodoJsonSupportSpec @Inject()(todoJsonConverter: JsonConverter[Todo])
     extends SpecBase {
   """デコード""" - {
 
@@ -18,7 +18,7 @@ class TodoJsonSupportSpec @Inject()(todoJsonSupport: JsonConverter[Todo])
          | }
         """.stripMargin
 
-      todoJsonSupport.decoder
+      todoJsonConverter.decoder
         .decode(json)
         .successVal shouldBe new Todo(TodoId(1), "掃除", 0)
     }
