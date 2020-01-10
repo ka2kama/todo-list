@@ -9,8 +9,8 @@ import javax.inject.Singleton
 @Singleton
 class TodoConverterOnCirce extends JsonConverterOnCirce[Todo] {
 
-  implicit val idEncoder: Encoder[TodoId] = TodoIdEncoder.encoder
-  implicit val idDecoder: Decoder[TodoId] = TodoIdDecoder.decoder
+  private implicit val idEncoder: Encoder[TodoId] = TodoIdEncoder.encoder
+  private implicit val idDecoder: Decoder[TodoId] = TodoIdDecoder.decoder
 
   override implicit val encoder: JsonEncoderOnCirce[Todo] =
     DefaultCirceEncoder[Todo]
