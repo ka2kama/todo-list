@@ -7,16 +7,21 @@ import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
 
-class TodoJsonSupportSpec extends SpecBase {
-
-  import TodoJsonSupport._
+class TodoJsonSupportSpec extends SpecBase with TodoJsonSupport {
 
   """エンコード""" - {
     """TodoIdを数値に変換したJSONを作成する""" in {
       val todo = new Todo(TodoId(1000), "テスト", 2)
 
-      todo.asJson shouldBe
-        parse("""{ "id": 1000, "content": "テスト", "state": 2 }""").successVal
+      val json = """
+         | {
+         | "id": 1000,
+         | "content": "テスト",
+         | "state": 2
+         | }
+        """.stripMargin
+
+      todo.asJson shouldBe parse(json).successVal
     }
   }
 
@@ -31,7 +36,9 @@ class TodoJsonSupportSpec extends SpecBase {
          | }
         """.stripMargin
 
-      decode[Todo](json).successVal shouldBe new Todo(TodoId(1), "掃除", 0)
+      val todo = new Todo(TodoId(1), "掃除", 0)
+
+      decode[Todo](json).successVal shouldBe todo
     }
   }
 }
