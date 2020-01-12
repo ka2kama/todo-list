@@ -1,26 +1,37 @@
 package com.ka2kama.application.json
 
 import com.ka2kama.SpecBase
-import com.ka2kama.SpecBase.TryOps
+import com.ka2kama.SpecBase.EitherOps
 import com.ka2kama.core.{Todo, TodoId}
-import javax.inject.Inject
+import io.circe.generic.auto._
+import io.circe.parser._
+import io.circe.syntax._
 
-class TodoJsonSupportSpec @Inject()(todoJsonConverter: JsonConverter[Todo])
-    extends SpecBase {
+class TodoJsonSupportSpec extends SpecBase {
+
+  import TodoJsonSupport._
+
+  """エンコード""" - {
+    """TodoIdを数値に変換したJSONを作成する""" in {
+      val todo = new Todo(TodoId(1000), "テスト", 2)
+
+      todo.asJson shouldBe
+        parse("""{ "id": 1000, "content": "テスト", "state": 2 }""").successVal
+    }
+  }
+
   """デコード""" - {
 
-    """デコード時にidをTodoIdに変換したインスタンスを作成する""" in {
+    """idをTodoIdに変換したインスタンスを作成する""" in {
       val json = """
          | {
-         | "id" : 1,
-         | "content" : "掃除",
-         | "state" : 0
+         | "id": 1,
+         | "content": "掃除",
+         | "state": 0
          | }
         """.stripMargin
 
-      todoJsonConverter.decoder
-        .decode(json)
-        .successVal shouldBe new Todo(TodoId(1), "掃除", 0)
+      decode[Todo](json).successVal shouldBe new Todo(TodoId(1), "掃除", 0)
     }
   }
 }
