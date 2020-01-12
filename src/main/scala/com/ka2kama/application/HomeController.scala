@@ -5,18 +5,13 @@ import com.ka2kama.core.{Todo, TodoId}
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject
-import play.api.Logger
-import play.api.libs.circe.Circe
 import play.api.mvc._
 
 import scala.concurrent.Future
 
 class HomeController @Inject()(cc: ControllerComponents)
-    extends AbstractController(cc)
-    with Circe
+    extends TodoBaseController(cc)
     with TodoJsonSupport {
-
-  private val logger = Logger(this.getClass)
 
   def index(): Action[AnyContent] = {
     logger.debug("index: ")
