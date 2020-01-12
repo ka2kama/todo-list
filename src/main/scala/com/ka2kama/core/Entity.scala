@@ -9,12 +9,12 @@ trait Entity {
 
   protected val tag: ClassTag[EntityType]
 
+  def canEqual(other: Any): Boolean = tag.runtimeClass.isInstance(other)
+
   override def equals(other: Any): Boolean = other match {
     case tag(that) => (that canEqual this) && id == that.id
     case _         => false
   }
-
-  def canEqual(other: Any): Boolean = tag.runtimeClass.isInstance(other)
 
   override def hashCode(): Int = 31 * id.##
 }

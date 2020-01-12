@@ -21,5 +21,5 @@ libraryDependencies ++= Seq(
 //  "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
 //  "io.circe" %% "circe-parser" % circeVersion,
-  "com.dripower" %% "play-circe" % "2812.0",
+  "com.dripower" %% "play-circe" % "2812.0"
 )
