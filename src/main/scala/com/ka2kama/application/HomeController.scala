@@ -14,13 +14,13 @@ class HomeController @Inject()(cc: ControllerComponents)
     with TodoJsonSupport {
 
   def index(): Action[AnyContent] = {
-    logger.debug("index: ")
+    logger.info("index: ")
     list()
   }
 
   def list(): Action[AnyContent] = Action.async { implicit request =>
-    logger.debug("list: ")
-    val todo = new Todo(TodoId(1), "掃除", 0)
+    logger.info("list: ")
+    val todo = Todo(TodoId(1), "掃除", 0)
 
     Future.successful(Ok(todo.asJson))
   }
