@@ -11,7 +11,7 @@ class TodoJsonSupportSpec extends SpecBase with TodoJsonSupport {
 
   """エンコード""" - {
     """TodoIdを数値に変換したJSONを作成する""" in {
-      val todo = new Todo(TodoId(1000), "テスト", 2)
+      val todo = Todo(TodoId(1000), "テスト", 2)
 
       val json = """
          | {
@@ -36,7 +36,7 @@ class TodoJsonSupportSpec extends SpecBase with TodoJsonSupport {
          | }
         """.stripMargin
 
-      val todo = new Todo(TodoId(1), "掃除", 0)
+      val todo = Todo(TodoId(1), "掃除", 0)
 
       decode[Todo](json).successVal shouldBe todo
     }

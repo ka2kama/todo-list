@@ -6,8 +6,8 @@ class TodoSpec extends SpecBase {
   """TodoIdによる同一性判定""" - {
     """TodoIdの値が等しいインスタンス同士は同一とみなされる""" in {
 
-      val expected = new Todo(TodoId(10), "expected", 1)
-      val actual = new Todo(TodoId(10), "actual", 2)
+      val expected = Todo(TodoId(10), "expected", 1)
+      val actual = Todo(TodoId(10), "actual", 2)
 
       expected shouldEqual actual
     }
@@ -16,8 +16,8 @@ class TodoSpec extends SpecBase {
 
       val content = "content"
       val state = 1
-      val expected = new Todo(TodoId(100), content, state)
-      val actual = new Todo(TodoId(101), content, state)
+      val expected = Todo(TodoId(100), content, state)
+      val actual = Todo(TodoId(101), content, state)
 
       expected should not equal actual
     }

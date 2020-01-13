@@ -6,15 +6,15 @@ import org.scalatest.{FreeSpec, Matchers}
 
 import scala.util.Try
 
-trait SpecBase extends FreeSpec with Matchers with TripleEquals {}
+trait SpecBase extends FreeSpec with Matchers with TripleEquals
 
 object SpecBase {
-  implicit class EitherOps[+A, +B](val self: Either[A, B]) {
+  implicit class EitherOps[+A, +B](val self: Either[A, B]) extends AnyVal {
     def successVal(implicit ev: A <:< Throwable): B =
-      self.toTry.success.value
+      self.toTry.successVal
   }
 
-  implicit class TryOps[+A](val self: Try[A]) {
+  implicit class TryOps[+A](val self: Try[A]) extends AnyVal {
     def successVal: A = self.success.value
   }
 }
