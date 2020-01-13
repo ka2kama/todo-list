@@ -13,6 +13,12 @@ class HomeController @Inject()(cc: ControllerComponents)
     extends TodoBaseController(cc)
     with TodoJsonSupport {
 
+  val todos = Seq(
+    Todo(TodoId(1), "掃除", 0),
+    Todo(TodoId(2), "洗濯", 1),
+    Todo(TodoId(3), "料理", 2),
+  )
+
   def index(): Action[AnyContent] = {
     logger.info("index: ")
     list()
@@ -20,8 +26,7 @@ class HomeController @Inject()(cc: ControllerComponents)
 
   def list(): Action[AnyContent] = Action.async { implicit request =>
     logger.info("list: ")
-    val todo = Todo(TodoId(1), "掃除", 0)
 
-    Future.successful(Ok(todo.asJson))
+    Future.successful(Ok(todos.asJson))
   }
 }
