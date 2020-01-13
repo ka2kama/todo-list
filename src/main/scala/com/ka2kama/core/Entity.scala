@@ -5,7 +5,7 @@ import scala.reflect.ClassTag
 trait Entity {
   type EntityType <: Entity
   type IdType <: EntityId
-  val id: IdType
+  def id: IdType
 
   protected val tag: ClassTag[EntityType]
 
@@ -21,7 +21,7 @@ trait Entity {
 
 trait EntityId {
   type IdType
-  val value: IdType
+  def value: IdType
 }
 
 trait EntityLongId extends EntityId {
