@@ -1,4 +1,4 @@
-import com.google.inject.AbstractModule
+import com.ka2kama.core.todo.TodoModule
 import net.codingwell.scalaguice.ScalaModule
 import play.api.{Configuration, Environment}
 
@@ -8,8 +8,9 @@ import play.api.{Configuration, Environment}
   * https://www.playframework.com/documentation/latest/ScalaDependencyInjection
   */
 class Module(environment: Environment, configuration: Configuration)
-    extends AbstractModule
-    with ScalaModule {
+    extends ScalaModule {
 
-  override def configure(): Unit = {}
+  override def configure(): Unit = {
+    install(new TodoModule)
+  }
 }

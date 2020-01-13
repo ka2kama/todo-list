@@ -2,7 +2,7 @@ package com.ka2kama.application.json
 
 import com.ka2kama.SpecBase
 import com.ka2kama.SpecBase.EitherOps
-import com.ka2kama.core.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._

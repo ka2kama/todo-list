@@ -1,6 +1,7 @@
 package com.ka2kama.core
 
 import com.ka2kama.SpecBase
+import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
 
 class TodoSpec extends SpecBase {
   """TodoIdによる同一性判定""" - {

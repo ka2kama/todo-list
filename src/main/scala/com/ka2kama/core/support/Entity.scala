@@ -1,4 +1,4 @@
-package com.ka2kama.core
+package com.ka2kama.core.support
 
 import scala.reflect.ClassTag
 
