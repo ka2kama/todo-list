@@ -19,7 +19,7 @@ class HomeController @Inject()(todoService: TodoService,
     list
   }
 
-  def list: Action[AnyContent] = Action.async { implicit request =>
+  def list: Action[AnyContent] = Action.async {
     logger.info("list: ")
 
     val todos = todoService.list

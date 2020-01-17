@@ -5,7 +5,7 @@ import scala.reflect.ClassTag
 trait Entity {
   type EntityType <: Entity
   type IdType <: EntityId
-  def id: IdType
+  val id: IdType
 
   protected val tag: ClassTag[EntityType]
 
