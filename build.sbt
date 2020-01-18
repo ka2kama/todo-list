@@ -9,6 +9,8 @@ lazy val root = (project in file("."))
 
 scalaVersion := "2.13.1"
 
+resolvers += Resolver.sonatypeRepo("releases")
+
 val circeVersion = "0.12.3"
 
 libraryDependencies ++= Seq(
