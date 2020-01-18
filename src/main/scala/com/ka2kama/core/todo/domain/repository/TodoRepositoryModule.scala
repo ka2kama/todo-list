@@ -4,7 +4,7 @@ import net.codingwell.scalaguice.ScalaPrivateModule
 
 private[todo] class TodoRepositoryModule extends ScalaPrivateModule {
   override def configure(): Unit = {
-    bind[TodoRepository].to[TodoRepositoryOnSlick]
+    bind[TodoRepository].to[TodoRepositoryOnScalikeJDBC]
 
     expose[TodoRepository]
   }
