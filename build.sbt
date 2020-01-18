@@ -28,6 +28,8 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-config" % "3.4.0",
   "org.scalikejdbc" %% "scalikejdbc-test" % "3.4.0" % "test",
   "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4",
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.20.1-play28",
+  "org.reactivemongo" %% "reactivemongo-play-json-compat" % "0.20.1-play28",
 //  "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
 //  "io.circe" %% "circe-parser" % circeVersion,
