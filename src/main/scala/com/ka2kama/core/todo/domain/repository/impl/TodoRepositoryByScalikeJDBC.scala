@@ -4,8 +4,7 @@ import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
 import com.ka2kama.core.todo.domain.repository.TodoRepository
 import scalikejdbc._
 
-//noinspection SqlDialectInspection
-private[repository] class TodoRepositoryOnScalikeJDBC extends TodoRepository {
+private[repository] class TodoRepositoryByScalikeJDBC extends TodoRepository {
 
   override def findAll: Seq[Todo] = DB readOnly { implicit session =>
     sql"select * from todo".map(TodoSupport.apply).list.apply()

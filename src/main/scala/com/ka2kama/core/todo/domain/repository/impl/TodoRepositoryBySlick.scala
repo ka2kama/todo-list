@@ -11,7 +11,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext}
 import scala.language.postfixOps
 
-private[repository] class TodoRepositoryOnSlick @Inject()(
+private[repository] class TodoRepositoryBySlick @Inject()(
   protected val dbConfigProvider: DatabaseConfigProvider
 )(implicit ec: ExecutionContext)
     extends TodoRepository
