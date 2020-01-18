@@ -7,14 +7,12 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.H2Profile.api._
 import slick.jdbc.JdbcProfile
 
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext}
-import scala.language.postfixOps
 
 private[repository] class TodoRepositoryBySlick @Inject()(
   protected val dbConfigProvider: DatabaseConfigProvider
-)(implicit ec: ExecutionContext)
-    extends TodoRepository
+) extends TodoRepository
     with HasDatabaseConfigProvider[JdbcProfile] {
 
   import dbConfig.profile.api._

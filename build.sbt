@@ -7,7 +7,8 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayWeb)
   .disablePlugins(PlayLayoutPlugin)
 
-scalaVersion := "2.13.1"
+import play.sbt.routes.RoutesKeys
+RoutesKeys.routesImport := Seq.empty
 
 resolvers += Resolver.sonatypeRepo("releases")
 

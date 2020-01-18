@@ -10,5 +10,7 @@ class TodoServiceModule extends ScalaPrivateModule {
     bind[TodoService].to[TodoServiceImpl]
 
     expose[TodoService]
+
+    ()
   }
 }
