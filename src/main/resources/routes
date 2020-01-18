@@ -4,4 +4,6 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                      com.ka2kama.application.HomeController.index
+GET        /                 com.ka2kama.application.HomeController.index
+GET        /todos            com.ka2kama.application.HomeController.list
+GET        /todos/:id        com.ka2kama.application.HomeController.get(id: Long)

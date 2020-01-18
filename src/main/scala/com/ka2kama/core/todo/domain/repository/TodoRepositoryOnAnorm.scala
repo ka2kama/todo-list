@@ -22,9 +22,8 @@ private[repository] class TodoRepositoryOnAnorm @Inject()(db: Database)
 
   override def findById(id: TodoId): Option[Todo] = db.withConnection {
     implicit c =>
-      val result =
-        SQL("Select * FROM todo").on("id" -> id.value).as(parser.singleOpt)
-      result.map {
+      val sql = SQL("SELECT * FROM todo WHERE id = {id}").on("id" -> id.value)
+      sql.as(parser.singleOpt).map {
         case id ~ content ~ state => Todo(TodoId(id), content, state)
       }
   }
