@@ -1,6 +1,7 @@
-package com.ka2kama.core.todo.domain.repository
+package com.ka2kama.core.todo.domain.repository.impl
 
 import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.repository.TodoRepository
 import javax.inject.Inject
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsObject, Json, _}
@@ -13,7 +14,7 @@ import reactivemongo.play.json.compat._
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
 
-private[repository] class TodoRepositoryOnMongoDB @Inject()(
+private[repository] class TodoRepositoryByMongoDB @Inject()(
   val reactiveMongoApi: ReactiveMongoApi
 )(implicit ec: ExecutionContext)
     extends TodoRepository

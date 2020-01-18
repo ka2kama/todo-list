@@ -1,5 +1,7 @@
-package com.ka2kama.core.todo.domain.repository
+package com.ka2kama.core.todo.domain.repository.impl
+
 import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.repository.TodoRepository
 
 private[repository] class TodoRepositoryOnMemory extends TodoRepository {
   private val todos = Map(

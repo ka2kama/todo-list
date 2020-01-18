@@ -1,6 +1,7 @@
-package com.ka2kama.core.todo.domain.repository
+package com.ka2kama.core.todo.domain.repository.impl
 
 import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.repository.TodoRepository
 import scalikejdbc._
 
 //noinspection SqlDialectInspection
