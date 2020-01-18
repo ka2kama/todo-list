@@ -26,9 +26,7 @@ abstract class ControllerSpecBase
     route(app, request).getOrElse(Future.successful(NotFound))
   }
 
-  def getResponse(path: String,
-                  method: String = GET,
-                  params: Option[Any] = None): Future[Result] = {
+  def getResponse(path: String, method: String = GET): Future[Result] = {
     val request = FakeRequest(method, path)
     getResponse(request)
   }
