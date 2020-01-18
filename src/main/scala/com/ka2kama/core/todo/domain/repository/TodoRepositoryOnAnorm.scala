@@ -8,11 +8,24 @@ import play.api.db.Database
 private[repository] class TodoRepositoryOnAnorm @Inject()(db: Database)
     extends TodoRepository {
 
+  private val parser = long("id") ~ str("content") ~ int("state")
+
   override def findAll: Seq[Todo] = db.withConnection { implicit c =>
-    val parser = long("id") ~ str("content") ~ int("state")
-    val result = SQL("Select * FROM todo").as(parser.*)
-    result.iterator.map {
-      case id ~ content ~ state => Todo(TodoId(id), content, state)
-    }.toSeq
+    SQL("Select * FROM todo")
+      .as(parser.*)
+      .iterator
+      .map {
+        case id ~ content ~ state => Todo(TodoId(id), content, state)
+      }
+      .toSeq
+  }
+
+  override def findById(id: TodoId): Option[Todo] = db.withConnection {
+    implicit c =>
+      val result =
+        SQL("Select * FROM todo").on("id" -> id.value).as(parser.singleOpt)
+      result.map {
+        case id ~ content ~ state => Todo(TodoId(id), content, state)
+      }
   }
 }

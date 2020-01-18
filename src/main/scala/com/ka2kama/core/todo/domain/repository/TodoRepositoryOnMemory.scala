@@ -9,4 +9,6 @@ private[repository] class TodoRepositoryOnMemory extends TodoRepository {
   )
 
   override def findAll: Seq[Todo] = todos.values.toSeq
+
+  override def findById(id: TodoId): Option[Todo] = todos.get(id)
 }
