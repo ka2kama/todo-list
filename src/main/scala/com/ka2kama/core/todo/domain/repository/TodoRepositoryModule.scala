@@ -8,8 +8,8 @@ private[todo] class TodoRepositoryModule extends ScalaPrivateModule {
 //    bind[TodoRepository].to[TodoRepositoryByAnorm]
 //    bind[TodoRepository].to[TodoRepositoryByMongoDB]
 //    bind[TodoRepository].to[TodoRepositoryByScalikeJDBC]
-//    bind[TodoRepository].to[TodoRepositoryBySlick]
-    bind[TodoRepository].to[TodoRepositoryOnMemory]
+    bind[TodoRepository].to[TodoRepositoryBySlick]
+//    bind[TodoRepository].to[TodoRepositoryOnMemory]
 
     expose[TodoRepository]
 

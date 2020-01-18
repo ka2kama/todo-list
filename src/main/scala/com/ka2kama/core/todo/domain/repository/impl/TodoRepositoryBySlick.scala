@@ -19,7 +19,7 @@ private[repository] class TodoRepositoryBySlick @Inject()(
 
   private val todos = TableQuery[Todos]
 
-  private val toEntity: PartialFunction[(Long, String, Int), Todo] = {
+  private val toEntity: Function[(Long, String, Int), Todo] = {
     case (id, content, state) => Todo(TodoId(id), content, state)
   }
 
