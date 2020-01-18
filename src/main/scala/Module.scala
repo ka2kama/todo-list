@@ -1,4 +1,4 @@
-import com.ka2kama.core.todo.TodoModule
+import com.ka2kama.core.todo.TodoServiceModule
 import net.codingwell.scalaguice.ScalaModule
 import play.api.{Configuration, Environment}
 
@@ -11,6 +11,6 @@ class Module(environment: Environment, configuration: Configuration)
     extends ScalaModule {
 
   override def configure(): Unit = {
-    install(new TodoModule)
+    install(new TodoServiceModule)
   }
 }

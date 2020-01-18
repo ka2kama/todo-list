@@ -1,7 +1,7 @@
 package com.ka2kama.application
 
 import com.ka2kama.application.json.TodoJsonSupport
-import com.ka2kama.core.todo.service.TodoService
+import com.ka2kama.core.todo.TodoService
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject

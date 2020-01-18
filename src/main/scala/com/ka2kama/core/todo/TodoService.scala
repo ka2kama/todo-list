@@ -1,4 +1,4 @@
-package com.ka2kama.core.todo.service
+package com.ka2kama.core.todo
 
 import com.ka2kama.core.todo.domain.model.Todo
 import com.ka2kama.core.todo.domain.repository.TodoRepository
