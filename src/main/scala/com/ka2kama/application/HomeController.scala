@@ -30,7 +30,10 @@ class HomeController @Inject()(todoService: TodoService,
   def get(id: Long): Action[AnyContent] = Action.async {
     logger.info("get: ")
 
-    val todoOpt = todoService.get(TodoId(id))
-    Future.successful(todoOpt.toJsonResult)
+    val result = todoService.get(TodoId(id)) match {
+      case Some(todo) => Ok(todo.asJson)
+      case _          => NotFound
+    }
+    Future.successful(result)
   }
 }
