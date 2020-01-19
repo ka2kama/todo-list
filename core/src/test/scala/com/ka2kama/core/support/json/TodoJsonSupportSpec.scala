@@ -2,7 +2,8 @@ package com.ka2kama.core.support.json
 
 import com.ka2kama.core.SpecBase
 import com.ka2kama.core.SpecBase.EitherOps
-import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.model.State.{Done, Unfinished}
+import com.ka2kama.core.todo.domain.model.{Content, Todo, TodoId}
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._
@@ -11,7 +12,7 @@ class TodoJsonSupportSpec extends SpecBase with TodoJsonSupport {
 
   """エンコード""" - {
     """TodoIdを数値に変換したJSONを作成する""" in {
-      val todo = Todo(TodoId(1000), "テスト", 2)
+      val todo = Todo(TodoId(1000), Content("テスト"), Done)
 
       val json = """
          | {
@@ -36,7 +37,7 @@ class TodoJsonSupportSpec extends SpecBase with TodoJsonSupport {
          | }
         """.stripMargin
 
-      val todo = Todo(TodoId(1), "掃除", 0)
+      val todo = Todo(TodoId(1), Content("掃除"), Unfinished)
 
       decode[Todo](json).successVal shouldBe todo
     }

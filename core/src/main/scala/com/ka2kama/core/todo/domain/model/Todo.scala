@@ -1,12 +1,36 @@
 package com.ka2kama.core.todo.domain.model
 
 import com.ka2kama.core.support.{Entity, EntityLongId}
+import com.ka2kama.util.Implicits.RichOption
 
 import scala.reflect.{ClassTag, classTag}
+import scala.util.Try
 
-case class Todo(id: TodoId, content: String, state: Int) extends Entity {
+case class Todo(id: TodoId, content: Content, state: State) extends Entity {
   override type EntityType = Todo
   override type IdType = TodoId
   override protected val tag: ClassTag[Todo] = classTag[Todo]
 }
 case class TodoId(value: Long) extends EntityLongId
+
+case class Content(value: String) extends AnyVal
+
+sealed abstract class State(val value: Int)
+
+object State {
+
+  case object Unfinished extends State(0)
+  case object Doing extends State(1)
+  case object Done extends State(2)
+  case object ParkingLot extends State(9)
+
+  private[this] val states =
+    Map(0 -> Unfinished, 1 -> Doing, 2 -> Done, 9 -> ParkingLot)
+
+  def of(state: Int): Try[State] =
+    states
+      .get(state)
+      .toTry(
+        new IllegalArgumentException(s"state $state is not a member of State")
+      )
+}

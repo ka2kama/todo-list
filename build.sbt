@@ -35,7 +35,7 @@ lazy val root = (project in file("."))
   .settings(baseSettings ++ Seq(
     name := "todo-list",
   ))
-  .aggregate(web, core)
+  .aggregate(web, core, util)
 
 lazy val web = (project in file("web"))
   .enablePlugins(PlayWeb)
@@ -52,7 +52,10 @@ lazy val web = (project in file("web"))
       "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4",
     ))
   )
-  .dependsOn(core % "test->test;compile->compile")
+  .dependsOn(
+    core % "test->test;compile->compile",
+    util % "test->test;compile->compile"
+  )
 
 lazy val core = (project in file("core"))
   .settings(baseSettings ++ baseDependencies ++ Seq(
@@ -72,3 +75,7 @@ lazy val core = (project in file("core"))
       "org.reactivemongo" %% "reactivemongo-play-json-compat" % "0.20.1-play28",
     )
   ))
+  .dependsOn(util % "test->test;compile->compile")
+
+lazy val util = (project in file("util"))
+  .settings(baseSettings ++ Seq(name := "todo-list-util"))

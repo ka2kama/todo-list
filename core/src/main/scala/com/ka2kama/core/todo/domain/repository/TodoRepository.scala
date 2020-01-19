@@ -2,7 +2,7 @@ package com.ka2kama.core.todo.domain.repository
 
 import com.ka2kama.core.db.todo.dao.TodoDao
 import com.ka2kama.core.support.Repository
-import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
+import com.ka2kama.core.todo.domain.model.{Content, State, Todo, TodoId}
 import javax.inject.Inject
 
 private[todo] trait TodoRepository extends Repository {
@@ -25,11 +25,11 @@ private object TodoConverter {
 
   implicit class ToEntity(val self: TodoDto) extends AnyVal {
     def toEntity: Todo =
-      Todo(TodoId(self.id), self.content, self.state)
+      Todo(TodoId(self.id), Content(self.content), State.of(self.state).get)
   }
 
   implicit class ToDto(val self: Todo) extends AnyVal {
     def toDto: TodoDto =
-      TodoDto(self.id.value, self.content, self.state)
+      TodoDto(self.id.value, self.content.value, self.state.value)
   }
 }
