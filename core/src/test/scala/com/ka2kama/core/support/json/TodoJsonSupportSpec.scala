@@ -1,7 +1,7 @@
 package com.ka2kama.core.support.json
 
 import com.ka2kama.core.SpecBase
-import com.ka2kama.core.SpecBase.EitherOps
+import com.ka2kama.util.SpecImplicits.EitherOps
 import com.ka2kama.core.support.json.todo.TodoJsonSupport
 import com.ka2kama.core.todo.domain.model._
 import io.circe.generic.auto._

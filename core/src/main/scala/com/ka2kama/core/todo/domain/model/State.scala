@@ -1,6 +1,6 @@
 package com.ka2kama.core.todo.domain.model
 
-import com.ka2kama.util.Implicits.RichOption
+import com.ka2kama.util.Implicits.OptionOps
 
 import scala.util.Try
 

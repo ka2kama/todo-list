@@ -1,6 +1,7 @@
 val scalaTestVersion = "3.1.0"
 val circeVersion = "0.12.3"
 val scalikeJDBCVersion = "3.4.0"
+val scalaGuiceVersion = "4.2.6"
 
 val baseSettings = Seq(
   organization := "com.ka2kama",
@@ -22,12 +23,8 @@ val baseSettings = Seq(
 
 val baseDependencies = Seq(
   libraryDependencies ++= Seq(
-    "net.codingwell" %% "scala-guice" % "4.2.6",
     "org.scalactic" %% "scalactic" % scalaTestVersion,
     "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
-    "io.circe" %% "circe-core" % circeVersion,
-    "io.circe" %% "circe-generic" % circeVersion,
-    "io.circe" %% "circe-parser" % circeVersion,
   )
 )
 
@@ -49,6 +46,7 @@ lazy val web = (project in file("web"))
       evolutions,
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
       "com.dripower" %% "play-circe" % "2812.0",
+      "io.circe" %% "circe-generic" % circeVersion,
       "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4",
     ))
   )
@@ -61,6 +59,10 @@ lazy val core = (project in file("core"))
   .settings(baseSettings ++ baseDependencies ++ Seq(
     name := "todo-list-core",
     libraryDependencies ++= Seq(
+      "net.codingwell" %% "scala-guice" % scalaGuiceVersion,
+      "io.circe" %% "circe-core" % circeVersion,
+      "io.circe" %% "circe-generic" % circeVersion,
+      "io.circe" %% "circe-parser" % circeVersion,
       "ch.qos.logback" % "logback-classic" % "1.2.3",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
       "com.h2database" % "h2" % "1.4.200",
@@ -78,4 +80,6 @@ lazy val core = (project in file("core"))
   .dependsOn(util % "test->test;compile->compile")
 
 lazy val util = (project in file("util"))
-  .settings(baseSettings ++ Seq(name := "todo-list-util"))
+  .settings(baseSettings ++ baseDependencies ++ Seq(
+    name := "todo-list-util",
+    libraryDependencies ++= Seq()))

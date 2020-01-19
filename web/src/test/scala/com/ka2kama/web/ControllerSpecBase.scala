@@ -1,7 +1,7 @@
 package com.ka2kama.web
 
 import com.ka2kama.core.SpecBase
-import com.ka2kama.core.SpecBase.EitherOps
+import com.ka2kama.util.SpecImplicits.EitherOps
 import io.circe.Json
 import io.circe.parser._
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
