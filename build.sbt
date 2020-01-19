@@ -64,7 +64,7 @@ lazy val core = (project in file("core"))
       "org.postgresql" % "postgresql" % "42.2.9",
       "org.playframework.anorm" %% "anorm" % "2.6.5",
       "com.typesafe.play" %% "play-slick" % "5.0.0",
-      //  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
+    //  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
       "org.scalikejdbc" %% "scalikejdbc" % scalikeJDBCVersion,
       "org.scalikejdbc" %% "scalikejdbc-config" % scalikeJDBCVersion,
       "org.scalikejdbc" %% "scalikejdbc-test" % scalikeJDBCVersion % "test",

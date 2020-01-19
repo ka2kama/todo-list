@@ -1,7 +1,6 @@
-package com.ka2kama.core.todo.domain.repository.impl
+package com.ka2kama.core.db.todo.dao
 
-import com.ka2kama.core.todo.domain.model.{Todo, TodoId}
-import com.ka2kama.core.todo.domain.repository.TodoRepository
+import com.ka2kama.core.db.todo.TodoDto
 import javax.inject.Inject
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.H2Profile.api._
@@ -10,35 +9,31 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-private[repository] class TodoRepositoryBySlick @Inject()(
+private[todo] class TodoDaoBySlick @Inject()(
   protected val dbConfigProvider: DatabaseConfigProvider
-) extends TodoRepository
+) extends TodoDao
     with HasDatabaseConfigProvider[JdbcProfile] {
 
   private val todos = TableQuery[Todos]
 
-  private val toEntity: Function[(Long, String, Int), Todo] = {
-    case (id, content, state) => Todo(TodoId(id), content, state)
-  }
-
-  override def findAll: Seq[Todo] = {
+  override def findAll: Iterator[TodoDto] = {
     val result = Await.result(db.run(todos.result), Duration.Inf)
-    result.map(toEntity)
+    result.iterator
   }
 
-  override def findById(id: TodoId): Option[Todo] = {
-    val q = todos.filter(_.id === id.value)
+  override def findById(id: Long): Option[TodoDto] = {
+    val q = todos.filter(_.id === id)
     val result = Await.result(db.run(q.result.headOption), Duration.Inf)
-    result.map(toEntity)
+    result
   }
 }
 
-private class Todos(tag: Tag) extends Table[(Long, String, Int)](tag, "todo") {
+private class Todos(tag: Tag) extends Table[TodoDto](tag, "todo") {
   def id = column[Long]("id", O.PrimaryKey) // This is the primary key column
   def content = column[String]("content")
 
   def state = column[Int]("state")
 
   // Every table needs a * projection with the same type as the table's type parameter
-  def * = (id, content, state)
+  def * = (id, content, state) <> (TodoDto.tupled, TodoDto.unapply)
 }

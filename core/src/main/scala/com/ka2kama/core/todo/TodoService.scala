@@ -16,7 +16,7 @@ private[todo] class TodoServiceImpl @Inject()(todoRepository: TodoRepository)
     with LazyLogging {
   override def list: Seq[Todo] = {
     logger.info("todoService: list")
-    todoRepository.findAll
+    todoRepository.findAll.to(LazyList)
   }
 
   override def get(id: TodoId): Option[Todo] = {
