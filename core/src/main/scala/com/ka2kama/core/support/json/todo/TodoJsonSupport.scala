@@ -1,4 +1,4 @@
-package com.ka2kama.core.support.json
+package com.ka2kama.core.support.json.todo
 
 trait TodoJsonSupport
     extends TodoIdJsonSupport

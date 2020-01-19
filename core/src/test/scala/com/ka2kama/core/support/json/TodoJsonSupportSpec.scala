@@ -2,8 +2,8 @@ package com.ka2kama.core.support.json
 
 import com.ka2kama.core.SpecBase
 import com.ka2kama.core.SpecBase.EitherOps
-import com.ka2kama.core.todo.domain.model.State.{Done, Unfinished}
-import com.ka2kama.core.todo.domain.model.{Content, Todo, TodoId}
+import com.ka2kama.core.support.json.todo.TodoJsonSupport
+import com.ka2kama.core.todo.domain.model._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._

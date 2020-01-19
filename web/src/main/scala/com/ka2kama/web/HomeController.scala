@@ -1,6 +1,6 @@
 package com.ka2kama.web
 
-import com.ka2kama.core.support.json.TodoJsonSupport
+import com.ka2kama.core.support.json.todo.TodoJsonSupport
 import com.ka2kama.core.todo.TodoService
 import com.ka2kama.core.todo.domain.model.TodoId
 import io.circe.generic.auto._
