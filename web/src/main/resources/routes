@@ -1,0 +1,9 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET        /                 com.ka2kama.web.HomeController.index
+GET        /todos            com.ka2kama.web.HomeController.list
+GET        /todos/:id        com.ka2kama.web.HomeController.get(id: Long)
