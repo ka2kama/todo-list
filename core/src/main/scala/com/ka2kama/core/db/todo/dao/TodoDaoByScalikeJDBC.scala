@@ -5,8 +5,8 @@ import scalikejdbc._
 
 private[todo] class TodoDaoByScalikeJDBC extends TodoDao {
 
-  override def findAll: Iterator[TodoDto] = DB readOnly { implicit session =>
-    sql"select * from todo".map(TodoSupport.apply).list.apply().iterator
+  override def findAll: Seq[TodoDto] = DB readOnly { implicit session =>
+    sql"select * from todo".map(TodoSupport.apply).list.apply()
   }
 
   override def findById(id: Long): Option[TodoDto] = DB readOnly {

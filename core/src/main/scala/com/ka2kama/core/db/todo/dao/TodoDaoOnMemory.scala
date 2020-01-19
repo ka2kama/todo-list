@@ -9,7 +9,7 @@ private[todo] class TodoDaoOnMemory extends TodoDao {
     3L -> TodoDto(3L, "料理", 2),
   )
 
-  override def findAll: Iterator[TodoDto] = todos.values.iterator
+  override def findAll: Seq[TodoDto] = todos.values.to(LazyList)
 
   override def findById(id: Long): Option[TodoDto] = todos.get(id)
 }

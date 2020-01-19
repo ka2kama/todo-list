@@ -16,9 +16,9 @@ private[todo] class TodoDaoBySlick @Inject()(
 
   private val todos = TableQuery[Todos]
 
-  override def findAll: Iterator[TodoDto] = {
+  override def findAll: Seq[TodoDto] = {
     val result = Await.result(db.run(todos.result), Duration.Inf)
-    result.iterator
+    result
   }
 
   override def findById(id: Long): Option[TodoDto] = {

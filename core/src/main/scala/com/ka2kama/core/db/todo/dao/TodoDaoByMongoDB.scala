@@ -28,7 +28,7 @@ private[todo] class TodoDaoByMongoDB @Inject()(
       (__ \ "state").read[Int]
   )(TodoDto.apply _)
 
-  override def findAll: Iterator[TodoDto] = {
+  override def findAll: Seq[TodoDto] = {
 
     val cursor = todos.map {
       _.find(BSONDocument(), None: Option[BSONDocument]).cursor[BSONDocument]()
@@ -37,7 +37,7 @@ private[todo] class TodoDaoByMongoDB @Inject()(
       cursor.flatMap(
         _.collect(-1, Cursor.FailOnError[Iterator[BSONDocument]]())
       )
-    Await.result(xs, Duration.Inf).map(_.as[TodoDto])
+    Await.result(xs, Duration.Inf).map(_.as[TodoDto]).to(LazyList)
   }
 
   override def findById(id: Long): Option[TodoDto] = {

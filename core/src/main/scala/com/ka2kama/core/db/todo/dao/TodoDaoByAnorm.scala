@@ -10,14 +10,14 @@ private[todo] class TodoDaoByAnorm @Inject()(db: Database) extends TodoDao {
 
   private val parser = long("id") ~ str("content") ~ int("state")
 
-  override def findAll: Iterator[TodoDto] = db.withConnection { implicit c =>
+  override def findAll: Seq[TodoDto] = db.withConnection { implicit c =>
     SQL("Select * FROM todo")
       .as(parser.*)
       .iterator
       .map {
         case id ~ content ~ state => TodoDto(id, content, state)
       }
-      .iterator
+      .to(LazyList)
   }
 
   override def findById(id: Long): Option[TodoDto] = db.withConnection {
