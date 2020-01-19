@@ -1,4 +1,4 @@
-import com.ka2kama.core.todo.TodoServiceModule
+import com.ka2kama.todolist.core.todo.TodoServiceModule
 import net.codingwell.scalaguice.ScalaModule
 
 /**
