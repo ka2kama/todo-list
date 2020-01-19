@@ -28,8 +28,8 @@ private object TodoConverter {
       Todo(TodoId(self.id), self.content, self.state)
   }
 
-  implicit class ToRecord(val self: Todo) extends AnyVal {
-    def toRecord: TodoDto =
+  implicit class ToDto(val self: Todo) extends AnyVal {
+    def toDto: TodoDto =
       TodoDto(self.id.value, self.content, self.state)
   }
 }
