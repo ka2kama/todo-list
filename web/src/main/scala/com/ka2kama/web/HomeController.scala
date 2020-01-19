@@ -1,8 +1,8 @@
 package com.ka2kama.web
 
+import com.ka2kama.core.support.json.TodoJsonSupport
 import com.ka2kama.core.todo.TodoService
 import com.ka2kama.core.todo.domain.model.TodoId
-import com.ka2kama.web.json.TodoJsonSupport
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject

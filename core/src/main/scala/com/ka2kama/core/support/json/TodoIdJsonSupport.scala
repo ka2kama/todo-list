@@ -1,4 +1,4 @@
-package com.ka2kama.web.json
+package com.ka2kama.core.support.json
 
 import com.ka2kama.core.todo.domain.model.TodoId
 import io.circe.{Decoder, Encoder}

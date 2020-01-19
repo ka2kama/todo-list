@@ -1,4 +1,4 @@
-package com.ka2kama.web.json
+package com.ka2kama.core.support.json
 
 import com.ka2kama.core.SpecBase
 import com.ka2kama.core.SpecBase.EitherOps
