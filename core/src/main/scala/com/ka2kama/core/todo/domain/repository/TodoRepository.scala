@@ -14,7 +14,7 @@ private[repository] class TodoRepositoryImpl @Inject()(todoDao: TodoDao)
 
   import TodoConverter._
 
-  override def findAll: Iterator[Todo] = todoDao.findAll.map(_.toEntity)
+  override def findAll: Seq[Todo] = todoDao.findAll.map(_.toEntity)
 
   override def findById(id: TodoId): Option[Todo] =
     todoDao.findById(id.value).map(_.toEntity)
