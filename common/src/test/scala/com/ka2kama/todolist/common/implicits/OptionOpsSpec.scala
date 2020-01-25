@@ -30,7 +30,7 @@ class OptionOpsSpec extends SpecBase {
 
       "値が存在しなければ引数で指定した例外を返す" in {
         val errorMessage = "test exception"
-        val result = None.toTry(new UnsupportedOperationException(errorMessage))
+        val result       = None.toTry(new UnsupportedOperationException(errorMessage))
 
         result.isFailure shouldBe true
         the[UnsupportedOperationException] thrownBy {

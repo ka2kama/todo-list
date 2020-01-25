@@ -11,9 +11,9 @@ import play.api.mvc._
 
 import scala.concurrent.ExecutionContext
 
-final class TodoController @Inject()(
-  todoService: TodoService,
-  cc: ControllerComponents
+final class TodoController @Inject() (
+    todoService: TodoService,
+    cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends TodoBaseController(cc)
     with TodoJsonSupport {

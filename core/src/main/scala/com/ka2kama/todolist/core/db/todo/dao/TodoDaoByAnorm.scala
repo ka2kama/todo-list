@@ -8,8 +8,8 @@ import play.api.db.Database
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[todo] final class TodoDaoByAnorm @Inject()(db: Database)(
-  implicit ec: ExecutionContext
+private[todo] final class TodoDaoByAnorm @Inject() (db: Database)(
+    implicit ec: ExecutionContext
 ) extends TodoDao {
 
   private[this] val parser: RowParser[Long ~ String ~ Int] = long("id") ~ str(

@@ -6,8 +6,8 @@ import scala.util.Try
 sealed abstract class State(val value: Int)
 
 case object Unfinished extends State(0)
-case object Doing extends State(1)
-case object Done extends State(2)
+case object Doing      extends State(1)
+case object Done       extends State(2)
 case object ParkingLot extends State(9)
 
 object State {

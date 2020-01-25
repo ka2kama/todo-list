@@ -8,8 +8,8 @@ import slick.jdbc.JdbcProfile
 
 import scala.concurrent.Future
 
-private[todo] final class TodoDaoBySlick @Inject()(
-  protected val dbConfigProvider: DatabaseConfigProvider
+private[todo] final class TodoDaoBySlick @Inject() (
+    protected val dbConfigProvider: DatabaseConfigProvider
 ) extends TodoDao
     with HasDatabaseConfigProvider[JdbcProfile] {
 
@@ -24,7 +24,7 @@ private[todo] final class TodoDaoBySlick @Inject()(
 }
 
 private class Todos(tag: Tag) extends Table[TodoDto](tag, "todo") {
-  def id = column[Long]("id", O.PrimaryKey) // This is the primary key column
+  def id      = column[Long]("id", O.PrimaryKey) // This is the primary key column
   def content = column[String]("content")
 
   def state = column[Int]("state")

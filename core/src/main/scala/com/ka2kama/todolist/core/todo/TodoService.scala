@@ -14,8 +14,8 @@ trait TodoService {
   def list: Future[Seq[Todo]]
 }
 
-private[todo] final class TodoServiceImpl @Inject()(
-  todoRepository: TodoRepository
+private[todo] final class TodoServiceImpl @Inject() (
+    todoRepository: TodoRepository
 ) extends TodoService
     with LazyLogging {
   override def list: Future[Seq[Todo]] = {

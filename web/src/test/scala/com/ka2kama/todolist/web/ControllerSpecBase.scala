@@ -12,16 +12,13 @@ import play.api.test.{FakeRequest, Injecting}
 
 import scala.concurrent.Future
 
-abstract class ControllerSpecBase
-    extends SpecBase
-    with GuiceOneAppPerTest
-    with Injecting {
+abstract class ControllerSpecBase extends SpecBase with GuiceOneAppPerTest with Injecting {
 
   protected val NotFound: Result =
     Result(ResponseHeader(NOT_FOUND), HttpEntity.NoEntity)
 
   def getResponse[T](
-    request: Request[T]
+      request: Request[T]
   )(implicit w: Writeable[T]): Future[Result] = {
     route(app, request).getOrElse(Future.successful(NotFound))
   }
