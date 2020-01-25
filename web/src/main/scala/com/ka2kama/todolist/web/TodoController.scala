@@ -21,17 +21,19 @@ final class TodoController @Inject() (
   def list: Action[AnyContent] = Action.async {
     logger.info("list: ")
 
-    val todosFuture = todoService.list
-    todosFuture.map(todos => Ok(todos.asJson))
+    val result = for {
+      todos <- todoService.list
+    } yield todos.asJson
+
+    result.map(Ok(_))
   }
 
   def get(id: Long): Action[AnyContent] = Action.async {
     logger.info("get: ")
 
-    val result = {
-      val todo = todoService.get(TodoId(id))
-      todo.map(_.asJson)
-    }
+    val result = for {
+      todo <- todoService.get(TodoId(id))
+    } yield todo.asJson
 
     result.fold(NotFound: Result)(Ok(_))
   }
