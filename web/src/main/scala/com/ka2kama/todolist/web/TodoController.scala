@@ -25,10 +25,11 @@ final class TodoController @Inject()(todoService: TodoService,
   def get(id: Long): Action[AnyContent] = Action.async {
     logger.info("get: ")
 
-    val result = todoService.get(TodoId(id)) match {
-      case Some(todo) => Ok(todo.asJson)
-      case _          => NotFound
-    }
+    val todoOption = todoService.get(TodoId(id))
+
+    val todoJsonOption = todoOption.map(_.asJson)
+
+    val result = todoJsonOption.fold(NotFound: Result)(Ok(_))
     Future.successful(result)
   }
 }
