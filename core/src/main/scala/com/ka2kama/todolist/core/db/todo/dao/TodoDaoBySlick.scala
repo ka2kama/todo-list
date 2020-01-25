@@ -6,8 +6,7 @@ import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.H2Profile.api._
 import slick.jdbc.JdbcProfile
 
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.concurrent.Future
 
 private[todo] final class TodoDaoBySlick @Inject()(
   protected val dbConfigProvider: DatabaseConfigProvider
@@ -16,15 +15,11 @@ private[todo] final class TodoDaoBySlick @Inject()(
 
   private[this] val todos = TableQuery[Todos]
 
-  override def findAll: Seq[TodoDto] = {
-    val result = Await.result(db.run(todos.result), Duration.Inf)
-    result
-  }
+  override def findAll: Future[Seq[TodoDto]] = db.run(todos.result)
 
-  override def findById(id: Long): Option[TodoDto] = {
+  override def findById(id: Long): Future[Option[TodoDto]] = {
     val q = todos.filter(_.id === id)
-    val result = Await.result(db.run(q.result.headOption), Duration.Inf)
-    result
+    db.run(q.result.headOption)
   }
 }
 

@@ -8,28 +8,29 @@ import io.circe.syntax._
 import javax.inject.Inject
 import play.api.mvc._
 
-import scala.concurrent.Future
+import scala.concurrent.ExecutionContext
 
-final class TodoController @Inject()(todoService: TodoService,
-                                     cc: ControllerComponents)
+final class TodoController @Inject()(
+  todoService: TodoService,
+  cc: ControllerComponents
+)(implicit ec: ExecutionContext)
     extends TodoBaseController(cc)
     with TodoJsonSupport {
 
   def list: Action[AnyContent] = Action.async {
     logger.info("list: ")
 
-    val todos = todoService.list
-    Future.successful(Ok(todos.asJson))
+    val todosFuture = todoService.list
+    todosFuture.map(todos => Ok(todos.asJson))
   }
 
   def get(id: Long): Action[AnyContent] = Action.async {
     logger.info("get: ")
 
-    val todoOption = todoService.get(TodoId(id))
+    val todoOptionFuture = todoService.get(TodoId(id))
 
-    val todoJsonOption = todoOption.map(_.asJson)
+    val todoJsonOption = todoOptionFuture.map(_.map(_.asJson))
 
-    val result = todoJsonOption.fold(NotFound: Result)(Ok(_))
-    Future.successful(result)
+    todoJsonOption.map(_.fold(NotFound: Result)(Ok(_)))
   }
 }

@@ -10,19 +10,23 @@ import com.ka2kama.todolist.core.todo.domain.model.{
 }
 import javax.inject.Inject
 
+import scala.concurrent.{ExecutionContext, Future}
+
 private[todo] trait TodoRepository extends Repository {
   override type E = Todo
 }
 
-private[repository] final class TodoRepositoryImpl @Inject()(todoDao: TodoDao)
-    extends TodoRepository {
+private[repository] final class TodoRepositoryImpl @Inject()(todoDao: TodoDao)(
+  implicit ec: ExecutionContext
+) extends TodoRepository {
 
   import TodoConverter._
 
-  override def findAll: Seq[Todo] = todoDao.findAll.map(_.toEntity)
+  override def findAll: Future[Seq[Todo]] =
+    todoDao.findAll.map(_.map(_.toEntity))
 
-  override def findById(id: TodoId): Option[Todo] =
-    todoDao.findById(id.value).map(_.toEntity)
+  override def findById(id: TodoId): Future[Option[Todo]] =
+    todoDao.findById(id.value).map(_.map(_.toEntity))
 }
 
 private object TodoConverter {

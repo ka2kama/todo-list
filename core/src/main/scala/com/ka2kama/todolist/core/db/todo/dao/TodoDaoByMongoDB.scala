@@ -10,8 +10,7 @@ import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.play.json.compat._
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, Future}
 
 private[todo] final class TodoDaoByMongoDB @Inject()(
   val reactiveMongoApi: ReactiveMongoApi
@@ -28,7 +27,7 @@ private[todo] final class TodoDaoByMongoDB @Inject()(
       (__ \ "state").read[Int]
   )(TodoDto.apply _)
 
-  override def findAll: Seq[TodoDto] = {
+  override def findAll: Future[Seq[TodoDto]] = {
 
     val cursor = todos.map {
       _.find(BSONDocument(), None: Option[BSONDocument]).cursor[BSONDocument]()
@@ -37,14 +36,14 @@ private[todo] final class TodoDaoByMongoDB @Inject()(
       cursor.flatMap(
         _.collect(-1, Cursor.FailOnError[Iterator[BSONDocument]]())
       )
-    Await.result(xs, Duration.Inf).map(_.as[TodoDto]).to(LazyList)
+    xs.map(_.map(_.as[TodoDto]).to(LazyList))
   }
 
-  override def findById(id: Long): Option[TodoDto] = {
+  override def findById(id: Long): Future[Option[TodoDto]] = {
     val todo = todos.flatMap(
       _.find(BSONDocument("id" -> id), None: Option[BSONDocument])
         .one[TodoDto]
     )
-    Await.result(todo, Duration.Inf)
+    todo
   }
 }
