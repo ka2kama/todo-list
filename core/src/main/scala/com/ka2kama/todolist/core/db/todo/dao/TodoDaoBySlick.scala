@@ -9,12 +9,12 @@ import slick.jdbc.JdbcProfile
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-private[todo] class TodoDaoBySlick @Inject()(
+private[todo] final class TodoDaoBySlick @Inject()(
   protected val dbConfigProvider: DatabaseConfigProvider
 ) extends TodoDao
     with HasDatabaseConfigProvider[JdbcProfile] {
 
-  private val todos = TableQuery[Todos]
+  private[this] val todos = TableQuery[Todos]
 
   override def findAll: Seq[TodoDto] = {
     val result = Await.result(db.run(todos.result), Duration.Inf)

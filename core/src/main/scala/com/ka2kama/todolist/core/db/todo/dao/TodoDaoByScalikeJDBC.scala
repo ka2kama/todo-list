@@ -3,7 +3,7 @@ package com.ka2kama.todolist.core.db.todo.dao
 import com.ka2kama.todolist.core.db.todo.TodoDto
 import scalikejdbc._
 
-private[todo] class TodoDaoByScalikeJDBC extends TodoDao {
+private[todo] final class TodoDaoByScalikeJDBC extends TodoDao {
 
   override def findAll: Seq[TodoDto] = DB readOnly { implicit session =>
     sql"select * from todo".map(TodoSupport.apply).list.apply()

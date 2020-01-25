@@ -6,9 +6,12 @@ import com.ka2kama.todolist.core.db.todo.TodoDto
 import javax.inject.Inject
 import play.api.db.Database
 
-private[todo] class TodoDaoByAnorm @Inject()(db: Database) extends TodoDao {
+private[todo] final class TodoDaoByAnorm @Inject()(db: Database)
+    extends TodoDao {
 
-  private val parser = long("id") ~ str("content") ~ int("state")
+  private[this] val parser: RowParser[Long ~ String ~ Int] = long("id") ~ str(
+    "content"
+  ) ~ int("state")
 
   override def findAll: Seq[TodoDto] = db.withConnection { implicit c =>
     SQL("Select * FROM todo")

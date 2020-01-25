@@ -14,7 +14,7 @@ private[todo] trait TodoRepository extends Repository {
   override type E = Todo
 }
 
-private[repository] class TodoRepositoryImpl @Inject()(todoDao: TodoDao)
+private[repository] final class TodoRepositoryImpl @Inject()(todoDao: TodoDao)
     extends TodoRepository {
 
   import TodoConverter._

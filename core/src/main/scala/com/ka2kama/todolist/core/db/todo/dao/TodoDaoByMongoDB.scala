@@ -13,13 +13,13 @@ import reactivemongo.play.json.compat._
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
 
-private[todo] class TodoDaoByMongoDB @Inject()(
+private[todo] final class TodoDaoByMongoDB @Inject()(
   val reactiveMongoApi: ReactiveMongoApi
 )(implicit ec: ExecutionContext)
     extends TodoDao
     with ReactiveMongoComponents {
 
-  private val todos: Future[BSONCollection] =
+  private[this] val todos: Future[BSONCollection] =
     reactiveMongoApi.database.map(_.collection[BSONCollection]("todo"))
 
   implicit private val todoReads: Reads[TodoDto] = (

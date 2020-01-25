@@ -10,8 +10,8 @@ import play.api.mvc._
 
 import scala.concurrent.Future
 
-class HomeController @Inject()(todoService: TodoService,
-                               cc: ControllerComponents)
+final class HomeController @Inject()(todoService: TodoService,
+                                     cc: ControllerComponents)
     extends TodoBaseController(cc)
     with TodoJsonSupport {
 
