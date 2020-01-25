@@ -1,4 +1,5 @@
 val scalaTestVersion = "3.1.0"
+val catsVersion = "2.0.0"
 val circeVersion = "0.12.3"
 val scalikeJDBCVersion = "3.4.0"
 val scalaGuiceVersion = "4.2.6"
@@ -25,7 +26,7 @@ val baseDependencies = Seq(
   libraryDependencies ++= Seq(
     "org.scalactic" %% "scalactic" % scalaTestVersion,
     "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
-    "org.typelevel" %% "cats-core" % "2.0.0",
+    "org.typelevel" %% "cats-core" % catsVersion,
   )
 )
 
