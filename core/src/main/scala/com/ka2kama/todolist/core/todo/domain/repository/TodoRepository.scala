@@ -1,5 +1,7 @@
 package com.ka2kama.todolist.core.todo.domain.repository
 
+import cats.data.OptionT
+import cats.implicits._
 import com.ka2kama.todolist.core.db.todo.dao.TodoDao
 import com.ka2kama.todolist.core.support.Repository
 import com.ka2kama.todolist.core.todo.domain.model.{
@@ -23,10 +25,14 @@ private[repository] final class TodoRepositoryImpl @Inject()(todoDao: TodoDao)(
   import TodoConverter._
 
   override def findAll: Future[Seq[Todo]] =
-    todoDao.findAll.map(_.map(_.toEntity))
+    for {
+      todos <- todoDao.findAll
+    } yield todos.map(_.toEntity)
 
-  override def findById(id: TodoId): Future[Option[Todo]] =
-    todoDao.findById(id.value).map(_.map(_.toEntity))
+  override def findById(id: TodoId): OptionT[Future, Todo] = {
+    val dto = todoDao.findById(id.value)
+    OptionT(dto).map(_.toEntity)
+  }
 }
 
 private object TodoConverter {

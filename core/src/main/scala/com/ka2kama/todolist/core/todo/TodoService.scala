@@ -1,5 +1,6 @@
 package com.ka2kama.todolist.core.todo
 
+import cats.data.OptionT
 import com.ka2kama.todolist.core.todo.domain.model.{Todo, TodoId}
 import com.ka2kama.todolist.core.todo.domain.repository.TodoRepository
 import com.typesafe.scalalogging.LazyLogging
@@ -8,7 +9,7 @@ import javax.inject.Inject
 import scala.concurrent.Future
 
 trait TodoService {
-  def get(id: TodoId): Future[Option[Todo]]
+  def get(id: TodoId): OptionT[Future, Todo]
 
   def list: Future[Seq[Todo]]
 }
@@ -22,7 +23,7 @@ private[todo] final class TodoServiceImpl @Inject()(
     todoRepository.findAll
   }
 
-  override def get(id: TodoId): Future[Option[Todo]] = {
+  override def get(id: TodoId): OptionT[Future, Todo] = {
     logger.info("todoService: get")
     todoRepository.findById(id)
   }

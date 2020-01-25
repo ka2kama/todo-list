@@ -25,6 +25,7 @@ val baseDependencies = Seq(
   libraryDependencies ++= Seq(
     "org.scalactic" %% "scalactic" % scalaTestVersion,
     "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
+    "org.typelevel" %% "cats-core" % "2.0.0",
   )
 )
 

@@ -1,5 +1,6 @@
 package com.ka2kama.todolist.web
 
+import cats.implicits._
 import com.ka2kama.todolist.core.support.json.todo.TodoJsonSupport
 import com.ka2kama.todolist.core.todo.TodoService
 import com.ka2kama.todolist.core.todo.domain.model.TodoId
@@ -27,10 +28,11 @@ final class TodoController @Inject()(
   def get(id: Long): Action[AnyContent] = Action.async {
     logger.info("get: ")
 
-    val todoOptionFuture = todoService.get(TodoId(id))
+    val result = {
+      val todo = todoService.get(TodoId(id))
+      todo.map(_.asJson)
+    }
 
-    val todoJsonOption = todoOptionFuture.map(_.map(_.asJson))
-
-    todoJsonOption.map(_.fold(NotFound: Result)(Ok(_)))
+    result.fold(NotFound: Result)(Ok(_))
   }
 }
