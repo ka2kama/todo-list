@@ -1,7 +1,7 @@
 package com.ka2kama.todolist.web
 
 import cats.implicits._
-import com.ka2kama.todolist.core.support.json.todo.TodoJsonSupport
+import com.ka2kama.todolist.core.support.json.todo.TodoJsonEncoder
 import com.ka2kama.todolist.core.todo.TodoService
 import com.ka2kama.todolist.core.todo.domain.model.TodoId
 import io.circe.generic.auto._
@@ -16,7 +16,7 @@ final class TodoController @Inject() (
     cc: ControllerComponents
 )(implicit ec: ExecutionContext)
     extends TodoBaseController(cc)
-    with TodoJsonSupport {
+    with TodoJsonEncoder {
 
   def list: Action[AnyContent] = Action.async {
     logger.info("list: ")
