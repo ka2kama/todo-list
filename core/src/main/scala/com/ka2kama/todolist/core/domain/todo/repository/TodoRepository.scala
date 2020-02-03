@@ -1,15 +1,15 @@
-package com.ka2kama.todolist.core.todo.domain.repository
+package com.ka2kama.todolist.core.domain.todo.repository
 
 import cats.data.OptionT
 import cats.implicits._
 import com.ka2kama.todolist.core.db.todo.dao.TodoDao
+import com.ka2kama.todolist.core.domain.todo.model.{Content, State, Todo, TodoId}
 import com.ka2kama.todolist.core.support.Repository
-import com.ka2kama.todolist.core.todo.domain.model.{Content, State, Todo, TodoId}
 import javax.inject.Inject
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[todo] trait TodoRepository extends Repository {
+private[core] trait TodoRepository extends Repository {
   override type E = Todo
 }
 

@@ -1,7 +1,7 @@
 package com.ka2kama.todolist.core
 
 import com.ka2kama.todolist.common.SpecBase
-import com.ka2kama.todolist.core.todo.domain.model._
+import com.ka2kama.todolist.core.domain.todo.model._
 
 class TodoSpec extends SpecBase {
   "TodoIdによる同一性判定" - {

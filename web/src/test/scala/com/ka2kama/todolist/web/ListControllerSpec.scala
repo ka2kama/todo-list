@@ -4,7 +4,7 @@ import io.circe.Json
 import io.circe.syntax._
 import play.api.test.Helpers._
 
-class TodoControllerSpec extends ControllerSpecBase {
+class ListControllerSpec extends ControllerSpecBase {
 
   "「/todos」にGETメソッドでアクセス" - {
 

@@ -1,7 +1,7 @@
 package com.ka2kama.todolist.core.support.json.todo
 
+import com.ka2kama.todolist.core.domain.todo.model.TodoId
 import com.ka2kama.todolist.core.support.json.{SingleValueJsonDecoder, SingleValueJsonEncoder}
-import com.ka2kama.todolist.core.todo.domain.model.TodoId
 import io.circe.{Decoder, Encoder}
 
 trait TodoIdJsonSupport extends TodoIdJsonEncoder with TodoIdJsonDecoder

@@ -1,4 +1,4 @@
-package com.ka2kama.todolist.core.todo.domain.model
+package com.ka2kama.todolist.core.domain.todo.model
 
 import com.ka2kama.todolist.core.support.EntityLongId
 

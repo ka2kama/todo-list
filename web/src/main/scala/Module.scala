@@ -1,4 +1,4 @@
-import com.ka2kama.todolist.core.todo.TodoServiceModule
+import com.ka2kama.todolist.core.CoreModule
 import net.codingwell.scalaguice.ScalaModule
 
 /**
@@ -9,6 +9,6 @@ import net.codingwell.scalaguice.ScalaModule
 class Module extends ScalaModule {
 
   override def configure(): Unit = {
-    install(new TodoServiceModule)
+    install(new CoreModule)
   }
 }

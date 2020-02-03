@@ -5,5 +5,5 @@
 
 # An example controller showing a sample home page
 GET        /                 com.ka2kama.todolist.web.HomeController.index
-GET        /todos            com.ka2kama.todolist.web.TodoController.list
-GET        /todos/:id        com.ka2kama.todolist.web.TodoController.get(id: Long)
+GET        /todos            com.ka2kama.todolist.web.ListController.list
+GET        /todos/:id        com.ka2kama.todolist.web.ListController.get(id: Long)

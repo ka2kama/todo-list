@@ -2,8 +2,8 @@ package com.ka2kama.todolist.core.support.json
 
 import com.ka2kama.todolist.common.SpecBase
 import com.ka2kama.todolist.common.SpecBase.EitherOps
+import com.ka2kama.todolist.core.domain.todo.model._
 import com.ka2kama.todolist.core.support.json.todo.TodoJsonEncoder
-import com.ka2kama.todolist.core.todo.domain.model._
 import io.circe.generic.auto._
 import io.circe.parser._
 import io.circe.syntax._

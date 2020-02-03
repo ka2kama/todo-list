@@ -1,6 +1,7 @@
-package com.ka2kama.todolist.core.todo.domain.model
+package com.ka2kama.todolist.core.domain.todo.model
 
 import com.ka2kama.todolist.common.implicits.Implicits.OptionOps
+
 import scala.util.Try
 
 sealed abstract class State(val value: Int)
