@@ -2,11 +2,10 @@ package com.ka2kama.todolist.data.todo.dao
 
 import com.ka2kama.todolist.data.todo.TodoDto
 import javax.inject.Inject
+import monix.eval.Task
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.H2Profile.api._
 import slick.jdbc.JdbcProfile
-
-import scala.concurrent.Future
 
 private[data] final class TodoDaoBySlick @Inject() (
     protected val dbConfigProvider: DatabaseConfigProvider
@@ -15,9 +14,11 @@ private[data] final class TodoDaoBySlick @Inject() (
 
   private[this] val todos = TableQuery[Todos]
 
-  override def findAll: Future[Seq[TodoDto]] = db.run(todos.result)
+  override def findAll: Task[Seq[TodoDto]] = Task.deferFutureAction { implicit s =>
+    db.run(todos.result)
+  }
 
-  override def findById(id: Long): Future[Option[TodoDto]] = {
+  override def findById(id: Long): Task[Option[TodoDto]] = Task.deferFutureAction { implicit s =>
     val q = todos.filter(_.id === id)
     db.run(q.result.headOption)
   }

@@ -1,13 +1,12 @@
 package com.ka2kama.todolist.core.support
 
 import cats.data.OptionT
-
-import scala.concurrent.Future
+import monix.eval.Task
 
 private[core] trait Repository {
   type E <: Entity
 
-  def findAll: Future[Seq[E]]
+  def findAll: Task[Seq[E]]
 
-  def findById(id: E#IdType): OptionT[Future, E]
+  def findById(id: E#IdType): OptionT[Task, E]
 }

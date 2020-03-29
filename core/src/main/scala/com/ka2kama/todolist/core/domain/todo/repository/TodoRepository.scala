@@ -1,30 +1,26 @@
 package com.ka2kama.todolist.core.domain.todo.repository
 
 import cats.data.OptionT
-import cats.implicits._
-import com.ka2kama.todolist.data.todo.dao.TodoDao
 import com.ka2kama.todolist.core.domain.todo.model.{Content, State, Todo, TodoId}
 import com.ka2kama.todolist.core.support.Repository
+import com.ka2kama.todolist.data.todo.dao.TodoDao
 import javax.inject.Inject
-
-import scala.concurrent.{ExecutionContext, Future}
+import monix.eval.Task
 
 trait TodoRepository extends Repository {
   override type E = Todo
 }
 
-private[core] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao)(
-    implicit ec: ExecutionContext
-) extends TodoRepository {
+private[core] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao) extends TodoRepository {
 
   import TodoConverter._
 
-  override def findAll: Future[Seq[Todo]] =
+  override def findAll: Task[Seq[Todo]] =
     for {
       todos <- todoDao.findAll
     } yield todos.map(_.toEntity)
 
-  override def findById(id: TodoId): OptionT[Future, Todo] = {
+  override def findById(id: TodoId): OptionT[Task, Todo] = {
     val dto = todoDao.findById(id.value)
     OptionT(dto).map(_.toEntity)
   }

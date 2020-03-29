@@ -1,8 +1,7 @@
 package com.ka2kama.todolist.data.todo.dao
 
 import com.ka2kama.todolist.data.todo.TodoDto
-
-import scala.concurrent.Future
+import monix.eval.Task
 
 private[data] final class TodoDaoOnMemory extends TodoDao {
   private[this] val todosMap: Map[Long, TodoDto] = Map(
@@ -11,13 +10,13 @@ private[data] final class TodoDaoOnMemory extends TodoDao {
     3L -> TodoDto(3L, "料理", 2)
   )
 
-  override def findAll: Future[Seq[TodoDto]] = {
+  override def findAll: Task[Seq[TodoDto]] = Task {
     val todos = todosMap.values.to(LazyList)
-    Future.successful(todos)
+    todos
   }
 
-  override def findById(id: Long): Future[Option[TodoDto]] = {
+  override def findById(id: Long): Task[Option[TodoDto]] = Task {
     val todoOption = todosMap.get(id)
-    Future.successful(todoOption)
+    todoOption
   }
 }

@@ -2,6 +2,7 @@ package com.ka2kama.todolist.data.todo.dao
 
 import com.ka2kama.todolist.data.todo.TodoDto
 import javax.inject.Inject
+import monix.eval.Task
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.modules.reactivemongo.{ReactiveMongoApi, ReactiveMongoComponents}
@@ -27,8 +28,7 @@ private[data] final class TodoDaoByMongoDB @Inject() (
       (__ \ "state").read[Int]
   )(TodoDto.apply _)
 
-  override def findAll: Future[Seq[TodoDto]] = {
-
+  override def findAll: Task[Seq[TodoDto]] = Task.deferFutureAction { implicit s =>
     val cursor = todos.map {
       _.find(BSONDocument(), None: Option[BSONDocument]).cursor[BSONDocument]()
     }
@@ -39,7 +39,7 @@ private[data] final class TodoDaoByMongoDB @Inject() (
     xs.map(_.map(_.as[TodoDto]).to(LazyList))
   }
 
-  override def findById(id: Long): Future[Option[TodoDto]] = {
+  override def findById(id: Long): Task[Option[TodoDto]] = Task.deferFutureAction { implicit s =>
     val todo = todos.flatMap(
       _.find(BSONDocument("id" -> id), None: Option[BSONDocument])
         .one[TodoDto]

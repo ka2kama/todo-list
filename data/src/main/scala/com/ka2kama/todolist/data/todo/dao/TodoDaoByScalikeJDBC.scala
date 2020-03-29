@@ -1,13 +1,12 @@
 package com.ka2kama.todolist.data.todo.dao
 
 import com.ka2kama.todolist.data.todo.TodoDto
+import monix.eval.Task
 import scalikejdbc._
 
-import scala.concurrent.{ExecutionContext, Future}
+private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
 
-private[data] final class TodoDaoByScalikeJDBC(implicit ec: ExecutionContext) extends TodoDao {
-
-  override def findAll: Future[Seq[TodoDto]] = Future {
+  override def findAll: Task[Seq[TodoDto]] = Task {
     val todos = DB readOnly { implicit session =>
       sql"select * from todo".map(TodoSupport.apply).list.apply()
     }
@@ -15,7 +14,7 @@ private[data] final class TodoDaoByScalikeJDBC(implicit ec: ExecutionContext) ex
     todos
   }
 
-  override def findById(id: Long): Future[Option[TodoDto]] = Future {
+  override def findById(id: Long): Task[Option[TodoDto]] = Task {
     val todo = DB readOnly { implicit session =>
       sql"select * from todo where id = $id"
         .map(TodoSupport.apply)

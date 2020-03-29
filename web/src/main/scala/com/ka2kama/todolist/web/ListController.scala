@@ -1,21 +1,18 @@
 package com.ka2kama.todolist.web
 
-import cats.implicits._
 import com.ka2kama.todolist.core.domain.list.ListService
 import com.ka2kama.todolist.core.domain.todo.model.TodoId
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject
+import monix.execution.Scheduler.Implicits.global
 import play.api.Environment
 import play.api.mvc._
 
-import scala.concurrent.ExecutionContext
+final class ListController @Inject() (listService: ListService, cc: ControllerComponents)
+    extends TodoBaseController(cc) {
 
-final class ListController @Inject() (listService: ListService, cc: ControllerComponents)(
-    implicit ec: ExecutionContext
-) extends TodoBaseController(cc) {
-
-  def list: Action[AnyContent] = Action.async {
+  def list: Action[AnyContent] = ActionAsync {
     logger.info("list: ")
 
     val result = for {
@@ -25,7 +22,7 @@ final class ListController @Inject() (listService: ListService, cc: ControllerCo
     result.map(Ok(_))
   }
 
-  def get(id: Long): Action[AnyContent] = Action.async {
+  def get(id: Long): Action[AnyContent] = ActionAsync {
     logger.info("get: ")
 
     val todo     = listService.get(TodoId(id))
