@@ -7,6 +7,7 @@ import com.ka2kama.todolist.core.support.json.todo.TodoJsonEncoder
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject
+import play.api.Environment
 import play.api.mvc._
 
 import scala.concurrent.ExecutionContext
@@ -33,5 +34,34 @@ final class ListController @Inject() (listService: ListService, cc: ControllerCo
     val todoJson = todo.map(_.asJson)
 
     todoJson.fold(NotFound: Result)(Ok(_))
+  }
+
+  def stream: Action[AnyContent] = Action {
+    logger.info("stream: ")
+
+    //implicit val system: ActorSystem = ActorSystem("QuickStart")
+    //implicit val ec: ExecutionContextExecutor = system.dispatcher
+
+//    val source = Source(1 to 3000)
+//    //val sink       = Sink.fold[Int, Int](0)(_ + _)
+//    val factorials = source.scan(BigInt(1))((acc, next) => acc * next)
+//    val result = factorials
+//      .zipWith(Source(0 to 10000))((num, idx) => s"$idx! = $num\n")
+//      .map(ByteString(_))
+//    //.throttle(1, 1.second)
+//
+//    Ok.streamed(result, None, inline = false, Some("test.txt"))
+//    val sum = source.runWith(sink)
+//
+//    sum.map(Ok(_))
+//    val file                          = new java.io.File("/tmp/fileToServe.pdf")
+//    val path: java.nio.file.Path      = file.toPath
+//    val source: Source[ByteString, _] = FileIO.fromPath(path)
+//
+//    Result(
+//      header = ResponseHeader(200, Map.empty),
+//      body = HttpEntity.Streamed(source, None, Some("application/pdf"))
+//    )
+    Ok.sendFile(Environment.simple().getFile("/tmp/fileToServe.pdf"))
   }
 }
