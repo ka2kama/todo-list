@@ -4,4 +4,4 @@ scala:
 jdk: openjdk8
 
 script:
-  - sbt clean scalafmtCheckAll test
+  - sbt clean compile scalafmtCheckAll test:scalafmtCheckAll test
