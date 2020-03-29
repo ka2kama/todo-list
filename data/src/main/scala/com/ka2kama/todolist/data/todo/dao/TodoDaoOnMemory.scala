@@ -4,7 +4,7 @@ import com.ka2kama.todolist.data.todo.TodoDto
 
 import scala.concurrent.Future
 
-private[todo] final class TodoDaoOnMemory extends TodoDao {
+private[data] final class TodoDaoOnMemory extends TodoDao {
   private[this] val todosMap: Map[Long, TodoDto] = Map(
     1L -> TodoDto(1L, "掃除", 0),
     2L -> TodoDto(2L, "洗濯", 1),

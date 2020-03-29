@@ -12,7 +12,7 @@ import reactivemongo.play.json.compat._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[todo] final class TodoDaoByMongoDB @Inject() (
+private[data] final class TodoDaoByMongoDB @Inject() (
     val reactiveMongoApi: ReactiveMongoApi
 )(implicit ec: ExecutionContext)
     extends TodoDao

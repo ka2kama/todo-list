@@ -13,7 +13,7 @@ trait TodoRepository extends Repository {
   override type E = Todo
 }
 
-private[repository] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao)(
+private[core] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao)(
     implicit ec: ExecutionContext
 ) extends TodoRepository {
 

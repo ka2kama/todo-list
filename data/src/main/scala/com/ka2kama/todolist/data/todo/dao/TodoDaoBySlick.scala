@@ -8,7 +8,7 @@ import slick.jdbc.JdbcProfile
 
 import scala.concurrent.Future
 
-private[todo] final class TodoDaoBySlick @Inject() (
+private[data] final class TodoDaoBySlick @Inject() (
     protected val dbConfigProvider: DatabaseConfigProvider
 ) extends TodoDao
     with HasDatabaseConfigProvider[JdbcProfile] {

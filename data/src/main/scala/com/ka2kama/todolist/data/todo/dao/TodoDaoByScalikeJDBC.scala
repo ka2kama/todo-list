@@ -5,7 +5,7 @@ import scalikejdbc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[todo] final class TodoDaoByScalikeJDBC(implicit ec: ExecutionContext) extends TodoDao {
+private[data] final class TodoDaoByScalikeJDBC(implicit ec: ExecutionContext) extends TodoDao {
 
   override def findAll: Future[Seq[TodoDto]] = Future {
     val todos = DB readOnly { implicit session =>

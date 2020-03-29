@@ -8,7 +8,7 @@ import play.api.db.Database
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[todo] final class TodoDaoByAnorm @Inject() (db: Database)(
+private[data] final class TodoDaoByAnorm @Inject() (db: Database)(
     implicit ec: ExecutionContext
 ) extends TodoDao {
 
