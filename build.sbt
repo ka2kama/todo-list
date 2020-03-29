@@ -1,3 +1,5 @@
+import play.sbt.routes.RoutesKeys
+
 val scalaTestVersion   = "3.1.0"
 val catsVersion        = "2.0.0"
 val circeVersion       = "0.12.3"
@@ -45,7 +47,7 @@ lazy val web = (project in file("web"))
   .settings(
     baseSettings ++ baseDependencies ++ Seq(
       name := "todo-list-web",
-      play.sbt.routes.RoutesKeys.routesImport := Seq.empty,
+      RoutesKeys.routesImport := Seq.empty,
       libraryDependencies ++= Seq(
         guice,
         jdbc,
@@ -54,6 +56,7 @@ lazy val web = (project in file("web"))
         "com.dripower"           %% "play-circe"                   % "2812.0",
         "io.circe"               %% "circe-generic"                % circeVersion,
         "org.scalikejdbc"        %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4"
+        //  "com.typesafe.akka"      %% "akka-stream"                  % "2.6.3"
       )
     )
   )

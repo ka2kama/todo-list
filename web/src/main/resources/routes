@@ -7,3 +7,4 @@
 GET        /                 com.ka2kama.todolist.web.HomeController.index
 GET        /todos            com.ka2kama.todolist.web.ListController.list
 GET        /todos/:id        com.ka2kama.todolist.web.ListController.get(id: Long)
+GET        /stream            com.ka2kama.todolist.web.ListController.stream
