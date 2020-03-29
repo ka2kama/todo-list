@@ -1,6 +1,6 @@
-package com.ka2kama.todolist.core.db.todo.dao
+package com.ka2kama.todolist.data.todo.dao
 
-import com.ka2kama.todolist.core.db.todo.TodoDto
+import com.ka2kama.todolist.data.todo.TodoDto
 import javax.inject.Inject
 import play.api.libs.functional.syntax._
 import play.api.libs.json._

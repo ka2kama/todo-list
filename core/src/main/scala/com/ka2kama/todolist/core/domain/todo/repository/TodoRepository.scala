@@ -2,14 +2,14 @@ package com.ka2kama.todolist.core.domain.todo.repository
 
 import cats.data.OptionT
 import cats.implicits._
-import com.ka2kama.todolist.core.db.todo.dao.TodoDao
+import com.ka2kama.todolist.data.todo.dao.TodoDao
 import com.ka2kama.todolist.core.domain.todo.model.{Content, State, Todo, TodoId}
 import com.ka2kama.todolist.core.support.Repository
 import javax.inject.Inject
 
 import scala.concurrent.{ExecutionContext, Future}
 
-private[core] trait TodoRepository extends Repository {
+trait TodoRepository extends Repository {
   override type E = Todo
 }
 
@@ -32,7 +32,7 @@ private[repository] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao)(
 
 private object TodoConverter {
 
-  import com.ka2kama.todolist.core.db.todo.TodoDto
+  import com.ka2kama.todolist.data.todo.TodoDto
 
   implicit class ToEntity(val self: TodoDto) extends AnyVal {
     def toEntity: Todo =

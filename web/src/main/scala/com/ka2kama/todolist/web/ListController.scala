@@ -3,7 +3,6 @@ package com.ka2kama.todolist.web
 import cats.implicits._
 import com.ka2kama.todolist.core.domain.list.ListService
 import com.ka2kama.todolist.core.domain.todo.model.TodoId
-import com.ka2kama.todolist.core.support.json.todo.TodoJsonEncoder
 import io.circe.generic.auto._
 import io.circe.syntax._
 import javax.inject.Inject
@@ -14,8 +13,7 @@ import scala.concurrent.ExecutionContext
 
 final class ListController @Inject() (listService: ListService, cc: ControllerComponents)(
     implicit ec: ExecutionContext
-) extends TodoBaseController(cc)
-    with TodoJsonEncoder {
+) extends TodoBaseController(cc) {
 
   def list: Action[AnyContent] = Action.async {
     logger.info("list: ")

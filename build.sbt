@@ -41,7 +41,7 @@ lazy val root = (project in file("."))
   )
   .aggregate(web, core, common)
 
-lazy val web = (project in file("web"))
+lazy val web = project
   .enablePlugins(PlayWeb)
   .disablePlugins(PlayLayoutPlugin)
   .settings(
@@ -65,7 +65,7 @@ lazy val web = (project in file("web"))
     common % "test->test;compile->compile"
   )
 
-lazy val core = (project in file("core"))
+lazy val core = project
   .settings(
     baseSettings ++ baseDependencies ++ Seq(
       name := "todo-list-core",
@@ -74,6 +74,22 @@ lazy val core = (project in file("core"))
         "io.circe"                   %% "circe-core"     % circeVersion,
         "io.circe"                   %% "circe-generic"  % circeVersion,
         "io.circe"                   %% "circe-parser"   % circeVersion,
+        "ch.qos.logback"             % "logback-classic" % "1.2.3",
+        "com.typesafe.scala-logging" %% "scala-logging"  % "3.9.2",
+      )
+    )
+  )
+  .dependsOn(
+    common % "test->test;compile->compile",
+    data   % "test->test;compile->compile"
+  )
+
+lazy val data = project
+  .settings(
+    baseSettings ++ baseDependencies ++ Seq(
+      name := "todo-list-data",
+      libraryDependencies ++= Seq(
+        "net.codingwell"             %% "scala-guice"    % scalaGuiceVersion,
         "ch.qos.logback"             % "logback-classic" % "1.2.3",
         "com.typesafe.scala-logging" %% "scala-logging"  % "3.9.2",
         "com.h2database"             % "h2"              % "1.4.200",
@@ -91,7 +107,7 @@ lazy val core = (project in file("core"))
   )
   .dependsOn(common % "test->test;compile->compile")
 
-lazy val common = (project in file("common"))
+lazy val common = project
   .settings(
     baseSettings ++ baseDependencies ++ Seq(
       name := "todo-list-common",

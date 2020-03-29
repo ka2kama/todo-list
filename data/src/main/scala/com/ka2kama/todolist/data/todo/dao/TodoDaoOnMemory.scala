@@ -1,6 +1,6 @@
-package com.ka2kama.todolist.core.db.todo.dao
+package com.ka2kama.todolist.data.todo.dao
 
-import com.ka2kama.todolist.core.db.todo.TodoDto
+import com.ka2kama.todolist.data.todo.TodoDto
 
 import scala.concurrent.Future
 

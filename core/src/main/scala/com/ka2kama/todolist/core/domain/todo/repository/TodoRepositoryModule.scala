@@ -1,6 +1,6 @@
 package com.ka2kama.todolist.core.domain.todo.repository
 
-import com.ka2kama.todolist.core.db.todo.TodoDaoModule
+import com.ka2kama.todolist.data.todo.TodoDaoModule
 import net.codingwell.scalaguice.ScalaPrivateModule
 
 private[core] class TodoRepositoryModule extends ScalaPrivateModule {

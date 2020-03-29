@@ -1,9 +1,9 @@
-package com.ka2kama.todolist.core.db.todo
+package com.ka2kama.todolist.data.todo
 
-import com.ka2kama.todolist.core.db.todo.dao._
+import com.ka2kama.todolist.data.todo.dao.{TodoDao, TodoDaoByAnorm}
 import net.codingwell.scalaguice.ScalaPrivateModule
 
-private[core] final class TodoDaoModule extends ScalaPrivateModule {
+final class TodoDaoModule extends ScalaPrivateModule {
   override def configure(): Unit = {
     bind[TodoDao].to[TodoDaoByAnorm]
 //    bind[TodoDao].to[TodoDaoByMongoDB]
