@@ -1,12 +1,12 @@
 package com.ka2kama.todolist.data.todo.dao
 
-import com.ka2kama.todolist.data.todo.TodoDto
+import com.ka2kama.todolist.data.todo.TodoRecord
 import monix.eval.Task
 import scalikejdbc._
 
 private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
 
-  override def findAll: Task[Seq[TodoDto]] = Task {
+  override def findAll: Task[Seq[TodoRecord]] = Task {
     val todos = DB readOnly { implicit session =>
       sql"select * from todo".map(TodoSupport.apply).list.apply()
     }
@@ -14,7 +14,7 @@ private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
     todos
   }
 
-  override def findById(id: Long): Task[Option[TodoDto]] = Task {
+  override def findById(id: Long): Task[Option[TodoRecord]] = Task {
     val todo = DB readOnly { implicit session =>
       sql"select * from todo where id = $id"
         .map(TodoSupport.apply)
@@ -26,8 +26,8 @@ private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
   }
 }
 
-private object TodoSupport extends SQLSyntaxSupport[TodoDto] {
+private object TodoSupport extends SQLSyntaxSupport[TodoRecord] {
   override val tableName = "todo"
-  def apply(rs: WrappedResultSet): TodoDto =
-    TodoDto(rs.long("id"), rs.string("content"), rs.int("state"))
+  def apply(rs: WrappedResultSet): TodoRecord =
+    TodoRecord(rs.long("id"), rs.string("content"), rs.int("state"))
 }

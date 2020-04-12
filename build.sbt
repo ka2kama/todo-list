@@ -18,9 +18,8 @@ val baseSettings = Seq(
     "-Xlint",
     "-Ywarn-dead-code",
     "-Ywarn-numeric-widen",
-    // "-Ywarn-unused",
     "-Ywarn-value-discard",
-    //"-Xfatal-warnings"
+    "-Xfatal-warnings"
   ),
   scalafmtConfig := file(".scalafmt.conf"),
   resolvers += Resolver.sonatypeRepo("releases")
@@ -52,8 +51,8 @@ lazy val web = project
       RoutesKeys.routesImport := Seq.empty,
       libraryDependencies ++= Seq(
         guice,
-        jdbc,
-        evolutions,
+        //jdbc,
+        //evolutions,
         "org.scalatestplus.play" %% "scalatestplus-play"           % "5.0.0" % Test,
         "com.dripower"           %% "play-circe"                   % "2812.0",
         "io.circe"               %% "circe-generic"                % circeVersion,
@@ -91,19 +90,19 @@ lazy val data = project
     baseSettings ++ baseDependencies ++ Seq(
       name := "todo-list-data",
       libraryDependencies ++= Seq(
-        "net.codingwell"             %% "scala-guice"    % scalaGuiceVersion,
-        "ch.qos.logback"             % "logback-classic" % "1.2.3",
-        "com.typesafe.scala-logging" %% "scala-logging"  % "3.9.2",
-        "com.h2database"             % "h2"              % "1.4.200",
-        "org.postgresql"             % "postgresql"      % "42.2.9",
-        "org.playframework.anorm"    %% "anorm"          % "2.6.5",
-        "com.typesafe.play"          %% "play-slick"     % "5.0.0",
-        //  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
-        "org.scalikejdbc"   %% "scalikejdbc"                    % scalikeJDBCVersion,
-        "org.scalikejdbc"   %% "scalikejdbc-config"             % scalikeJDBCVersion,
-        "org.scalikejdbc"   %% "scalikejdbc-test"               % scalikeJDBCVersion % "test",
-        "org.reactivemongo" %% "play2-reactivemongo"            % "0.20.1-play28",
-        "org.reactivemongo" %% "reactivemongo-play-json-compat" % "0.20.1-play28"
+        "net.codingwell"             %% "scala-guice"                    % scalaGuiceVersion,
+        "ch.qos.logback"             % "logback-classic"                 % "1.2.3",
+        "com.typesafe.scala-logging" %% "scala-logging"                  % "3.9.2",
+        "com.h2database"             % "h2"                              % "1.4.200",
+        "org.postgresql"             % "postgresql"                      % "42.2.9",
+        "org.playframework.anorm"    %% "anorm"                          % "2.6.5",
+        "com.typesafe.play"          %% "play-slick"                     % "5.0.0",
+        "com.typesafe.play"          %% "play-slick-evolutions"          % "5.0.0",
+        "org.scalikejdbc"            %% "scalikejdbc"                    % scalikeJDBCVersion,
+        "org.scalikejdbc"            %% "scalikejdbc-config"             % scalikeJDBCVersion,
+        "org.scalikejdbc"            %% "scalikejdbc-test"               % scalikeJDBCVersion % "test",
+        "org.reactivemongo"          %% "play2-reactivemongo"            % "0.20.1-play28",
+        "org.reactivemongo"          %% "reactivemongo-play-json-compat" % "0.20.1-play28"
       )
     )
   )

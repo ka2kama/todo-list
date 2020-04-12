@@ -1,6 +1,6 @@
 package com.ka2kama.todolist.data.todo.dao
 
-import com.ka2kama.todolist.data.todo.TodoDto
+import com.ka2kama.todolist.data.todo.TodoRecord
 import javax.inject.Inject
 import monix.eval.Task
 import play.api.libs.functional.syntax._
@@ -22,13 +22,13 @@ private[data] final class TodoDaoByMongoDB @Inject() (
   private[this] val todos: Future[BSONCollection] =
     reactiveMongoApi.database.map(_.collection[BSONCollection]("todo"))
 
-  implicit private val todoReads: Reads[TodoDto] = (
+  implicit private val todoReads: Reads[TodoRecord] = (
     (__ \ "id").read[Long] and
       (__ \ "content").read[String] and
       (__ \ "state").read[Int]
-  )(TodoDto.apply _)
+  )(TodoRecord.apply _)
 
-  override def findAll: Task[Seq[TodoDto]] = Task.deferFutureAction { implicit s =>
+  override def findAll: Task[Seq[TodoRecord]] = Task.deferFutureAction { implicit s =>
     val cursor = todos.map {
       _.find(BSONDocument(), None: Option[BSONDocument]).cursor[BSONDocument]()
     }
@@ -36,13 +36,13 @@ private[data] final class TodoDaoByMongoDB @Inject() (
       cursor.flatMap(
         _.collect(-1, Cursor.FailOnError[Iterator[BSONDocument]]())
       )
-    xs.map(_.map(_.as[TodoDto]).to(LazyList))
+    xs.map(_.map(_.as[TodoRecord]).to(LazyList))
   }
 
-  override def findById(id: Long): Task[Option[TodoDto]] = Task.deferFutureAction { implicit s =>
+  override def findById(id: Long): Task[Option[TodoRecord]] = Task.deferFutureAction { implicit s =>
     val todo = todos.flatMap(
       _.find(BSONDocument("id" -> id), None: Option[BSONDocument])
-        .one[TodoDto]
+        .one[TodoRecord]
     )
     todo
   }

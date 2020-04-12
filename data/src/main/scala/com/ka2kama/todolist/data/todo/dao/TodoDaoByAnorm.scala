@@ -2,7 +2,7 @@ package com.ka2kama.todolist.data.todo.dao
 
 import anorm.SqlParser._
 import anorm._
-import com.ka2kama.todolist.data.todo.TodoDto
+import com.ka2kama.todolist.data.todo.TodoRecord
 import javax.inject.Inject
 import monix.eval.Task
 import play.api.db.Database
@@ -13,13 +13,13 @@ private[data] final class TodoDaoByAnorm @Inject() (db: Database) extends TodoDa
     "content"
   ) ~ int("state")
 
-  override def findAll: Task[Seq[TodoDto]] = Task {
+  override def findAll: Task[Seq[TodoRecord]] = Task {
     val todoAll = db.withConnection { implicit c =>
       SQL("Select * FROM todo")
         .as(parser.*)
         .iterator
         .map {
-          case id ~ content ~ state => TodoDto(id, content, state)
+          case id ~ content ~ state => TodoRecord(id, content, state)
         }
         .to(LazyList)
     }
@@ -27,11 +27,11 @@ private[data] final class TodoDaoByAnorm @Inject() (db: Database) extends TodoDa
     todoAll
   }
 
-  override def findById(id: Long): Task[Option[TodoDto]] = Task {
+  override def findById(id: Long): Task[Option[TodoRecord]] = Task {
     val todo = db.withConnection { implicit c =>
       val sql = SQL("SELECT * FROM todo WHERE id = {id}").on("id" -> id)
       sql.as(parser.singleOpt).map {
-        case id ~ content ~ state => TodoDto(id, content, state)
+        case id ~ content ~ state => TodoRecord(id, content, state)
       }
     }
 

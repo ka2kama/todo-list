@@ -28,15 +28,15 @@ private[core] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao) extend
 
 private object TodoConverter {
 
-  import com.ka2kama.todolist.data.todo.TodoDto
+  import com.ka2kama.todolist.data.todo.TodoRecord
 
-  implicit class ToEntity(val self: TodoDto) extends AnyVal {
+  implicit class ToEntity(val self: TodoRecord) extends AnyVal {
     def toEntity: Todo =
       Todo(TodoId(self.id), Content(self.content), State.of(self.state).get)
   }
 
   implicit class ToDto(val self: Todo) extends AnyVal {
-    def toDto: TodoDto =
-      TodoDto(self.id.value, self.content.value, self.state.value)
+    def toDto: TodoRecord =
+      TodoRecord(self.id.value, self.content.value, self.state.value)
   }
 }
