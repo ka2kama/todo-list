@@ -1,7 +1,7 @@
 language: scala
 scala:
-  - 2.13.1
-jdk: openjdk8
+  - 2.13.2
+jdk: openjdk11
 
 script:
   - sbt clean compile scalafmtCheckAll test:scalafmtCheckAll test
