@@ -10,7 +10,7 @@ val monixVersion       = "3.1.0"
 val baseSettings = Seq(
   organization := "com.ka2kama",
   version := "1.0-SNAPSHOT",
-  scalaVersion := "2.13.1",
+  scalaVersion := "2.13.2",
   scalacOptions ++= Seq(
     "-deprecation",
     "-feature",

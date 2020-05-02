@@ -17,18 +17,18 @@ class ListControllerSpec extends ControllerSpecBase {
         Json.obj(
           "id"      -> 1.asJson,
           "content" -> "掃除".asJson,
-          "state"   -> 0.asJson
+          "state"   -> 0.asJson,
         ),
         Json.obj(
           "id"      -> 2.asJson,
           "content" -> "洗濯".asJson,
-          "state"   -> 1.asJson
+          "state"   -> 1.asJson,
         ),
         Json.obj(
           "id"      -> 3.asJson,
           "content" -> "料理".asJson,
-          "state"   -> 2.asJson
-        )
+          "state"   -> 2.asJson,
+        ),
       )
     }
   }
@@ -43,7 +43,7 @@ class ListControllerSpec extends ControllerSpecBase {
       contentAsCirceJson(home) shouldBe Json.obj(
         "id"      -> 1.asJson,
         "content" -> "掃除".asJson,
-        "state"   -> 0.asJson
+        "state"   -> 0.asJson,
       )
     }
   }
