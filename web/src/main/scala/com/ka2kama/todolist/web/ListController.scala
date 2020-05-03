@@ -3,7 +3,6 @@ package com.ka2kama.todolist.web
 import com.ka2kama.todolist.core.domain.list.ListService
 import com.ka2kama.todolist.core.domain.todo.model.TodoId
 import io.circe.generic.auto._
-import io.circe.syntax._
 import javax.inject.Inject
 import monix.execution.Scheduler.Implicits.global
 import play.api.Environment
@@ -15,19 +14,16 @@ final class ListController @Inject() (listService: ListService, cc: ControllerCo
   def list: Action[AnyContent] = ActionAsync {
     logger.info("list: ")
 
-    val todosT     = listService.list
-    val todosJsonT = todosT.map(_.asJson)
-
-    todosJsonT.map(Ok(_))
+    val todos = listService.list
+    todos.map(_.toJsonResult)
   }
 
   def get(id: Long): Action[AnyContent] = ActionAsync {
     logger.info("get: ")
 
-    val todo     = listService.get(TodoId(id))
-    val todoJson = todo.map(_.asJson)
+    val todo = listService.get(TodoId(id))
 
-    todoJson.fold(NotFound: Result)(Ok(_))
+    todo.fold(NotFound: Result)(_.toJsonResult)
   }
 
   def stream: Action[AnyContent] = Action {

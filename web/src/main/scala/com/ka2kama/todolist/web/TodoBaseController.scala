@@ -1,5 +1,7 @@
 package com.ka2kama.todolist.web
 
+import io.circe.Encoder
+import io.circe.syntax._
 import javax.inject.Inject
 import monix.eval.Task
 import monix.execution.Scheduler.Implicits.global
@@ -14,5 +16,9 @@ abstract class TodoBaseController @Inject() (cc: ControllerComponents)
 
   def ActionAsync[A <: Result](task: Task[A]): Action[AnyContent] = Action.async {
     task.runToFuture
+  }
+
+  implicit class JsonResult[A: Encoder](val self: A) {
+    def toJsonResult: Result = Ok(self.asJson)
   }
 }
