@@ -8,7 +8,7 @@ private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
 
   override def findAll: Task[Seq[TodoRecord]] = Task {
     val todos = DB readOnly { implicit session =>
-      sql"select * from todo".map(TodoSupport.apply).list.apply()
+      sql"select * from todo".map(TodoSupport.apply).list().apply()
     }
 
     todos
@@ -18,7 +18,7 @@ private[data] final class TodoDaoByScalikeJDBC extends TodoDao {
     val todo = DB readOnly { implicit session =>
       sql"select * from todo where id = $id"
         .map(TodoSupport.apply)
-        .single
+        .single()
         .apply()
     }
 

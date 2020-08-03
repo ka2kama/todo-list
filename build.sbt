@@ -5,7 +5,7 @@ val catsVersion        = "2.1.1"
 val circeVersion       = "0.13.0"
 val scalikeJDBCVersion = "3.4.0"
 val scalaGuiceVersion  = "4.2.6"
-val monixVersion       = "3.2.1"
+val monixVersion       = "3.2.2"
 
 val baseSettings = Seq(
   organization := "com.ka2kama",
@@ -21,6 +21,7 @@ val baseSettings = Seq(
     "-Ywarn-value-discard",
     "-Xfatal-warnings",
   ),
+  scalacOptions --= Seq("-Xlint:byname-implicit"),
   scalafmtConfig := file(".scalafmt.conf"),
   resolvers += Resolver.sonatypeRepo("releases"),
 )

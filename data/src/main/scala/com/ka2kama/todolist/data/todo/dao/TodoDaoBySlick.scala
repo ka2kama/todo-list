@@ -6,6 +6,7 @@ import monix.eval.Task
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.H2Profile.api._
 import slick.jdbc.JdbcProfile
+import slick.lifted.ProvenShape
 
 private[data] final class TodoDaoBySlick @Inject() (
     protected val dbConfigProvider: DatabaseConfigProvider
@@ -23,11 +24,11 @@ private[data] final class TodoDaoBySlick @Inject() (
 }
 
 private class Todos(tag: Tag) extends Table[TodoRecord](tag, "todo") {
-  def id      = column[Long]("id", O.PrimaryKey) // This is the primary key column
-  def content = column[String]("content")
+  def id: Rep[Long]        = column[Long]("id", O.PrimaryKey) // This is the primary key column
+  def content: Rep[String] = column[String]("content")
 
-  def state = column[Int]("state")
+  def state: Rep[Int] = column[Int]("state")
 
   // Every table needs a * projection with the same type as the table's type parameter
-  def * = (id, content, state) <> (TodoRecord.tupled, TodoRecord.unapply)
+  def * : ProvenShape[TodoRecord] = (id, content, state).mapTo[TodoRecord]
 }
