@@ -1,7 +1,6 @@
 package com.ka2kama.todolist.web
 
-import io.circe.Json
-import io.circe.syntax._
+import play.api.libs.json._
 import play.api.test.Helpers._
 
 class ListControllerSpec extends ControllerSpecBase {
@@ -13,21 +12,21 @@ class ListControllerSpec extends ControllerSpecBase {
 
       status(home) shouldBe OK
       contentType(home) shouldBe Some("application/json")
-      contentAsCirceJson(home) shouldBe Json.arr(
+      contentAsJson(home) shouldBe Json.arr(
         Json.obj(
-          "id"      -> 1.asJson,
-          "content" -> "掃除".asJson,
-          "state"   -> 0.asJson,
+          "id"      -> 1,
+          "content" -> "掃除",
+          "state"   -> 0,
         ),
         Json.obj(
-          "id"      -> 2.asJson,
-          "content" -> "洗濯".asJson,
-          "state"   -> 1.asJson,
+          "id"      -> 2,
+          "content" -> "洗濯",
+          "state"   -> 1,
         ),
         Json.obj(
-          "id"      -> 3.asJson,
-          "content" -> "料理".asJson,
-          "state"   -> 2.asJson,
+          "id"      -> 3,
+          "content" -> "料理",
+          "state"   -> 2,
         ),
       )
     }
@@ -40,10 +39,10 @@ class ListControllerSpec extends ControllerSpecBase {
 
       status(home) shouldBe OK
       contentType(home) shouldBe Some("application/json")
-      contentAsCirceJson(home) shouldBe Json.obj(
-        "id"      -> 1.asJson,
-        "content" -> "掃除".asJson,
-        "state"   -> 0.asJson,
+      contentAsJson(home) shouldBe Json.obj(
+        "id"      -> 1,
+        "content" -> "掃除",
+        "state"   -> 0,
       )
     }
   }

@@ -1,5 +1,0 @@
-db.todo.insertMany([
-  { id: 1, content: "掃除", state: 0 },
-  { id: 2, content: "洗濯", state: 1 },
-  { id: 3, content: "料理", state: 2 },
-]);

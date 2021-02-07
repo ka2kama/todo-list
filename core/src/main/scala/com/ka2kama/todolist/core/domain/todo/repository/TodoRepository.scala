@@ -18,25 +18,20 @@ private[core] final class TodoRepositoryImpl @Inject() (todoDao: TodoDao) extend
   override def findAll: Task[Seq[Todo]] =
     for {
       todos <- todoDao.findAll
-    } yield todos.map(_.toEntity)
+    } yield todos.map(toEntity)
 
   override def findById(id: TodoId): OptionT[Task, Todo] = {
     val dto = todoDao.findById(id.value)
-    OptionT(dto).map(_.toEntity)
+    OptionT(dto).map(toEntity)
   }
 }
 
 private object TodoConverter {
-
   import com.ka2kama.todolist.data.todo.TodoRecord
 
-  implicit class ToEntity(val self: TodoRecord) extends AnyVal {
-    def toEntity: Todo =
-      Todo(TodoId(self.id), Content(self.content), State.of(self.state).get)
-  }
+  def toEntity(self: TodoRecord): Todo =
+    Todo(TodoId(self.id), Content(self.content), State.withValue(self.state))
 
-  implicit class ToDto(val self: Todo) extends AnyVal {
-    def toDto: TodoRecord =
-      TodoRecord(self.id.value, self.content.value, self.state.value)
-  }
+  def toRecord(self: Todo): TodoRecord =
+    TodoRecord(self.id.value, self.content.value, self.state.value)
 }

@@ -1,9 +1,6 @@
 package com.ka2kama.todolist.web
 
 import com.ka2kama.todolist.common.SpecBase
-import com.ka2kama.todolist.common.SpecBase.EitherOps
-import io.circe.Json
-import io.circe.parser._
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.http.{HttpEntity, Writeable}
 import play.api.mvc.{Request, ResponseHeader, Result}
@@ -27,7 +24,4 @@ abstract class ControllerSpecBase extends SpecBase with GuiceOneAppPerTest with 
     val request = FakeRequest(method, path)
     getResponse(request)
   }
-
-  def contentAsCirceJson(of: Future[Result]): Json =
-    parse(contentAsString(of)).successVal
 }

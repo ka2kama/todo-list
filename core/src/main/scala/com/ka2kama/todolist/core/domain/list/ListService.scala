@@ -19,13 +19,14 @@ private[core] final class ListServiceImpl @Inject() (todoRepository: TodoReposit
     with LazyLogging {
   override def list: Task[Seq[TodoDto]] = {
     logger.info("listService: list")
-    val todosF = todoRepository.findAll
-    todosF map (_ map TodoDto.toDto)
+    for {
+      todos <- todoRepository.findAll
+    } yield todos.map(TodoDto.toDto)
   }
 
   override def get(id: TodoId): OptionT[Task, TodoDto] = {
     logger.info("listService: get")
     val todo = todoRepository.findById(id)
-    todo map TodoDto.toDto
+    todo.map(TodoDto.toDto)
   }
 }

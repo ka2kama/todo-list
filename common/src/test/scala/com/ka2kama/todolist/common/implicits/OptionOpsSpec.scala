@@ -6,7 +6,7 @@ import scala.util.Success
 
 class OptionOpsSpec extends SpecBase {
 
-  import com.ka2kama.todolist.common.implicits.Implicits.OptionOps
+  import com.ka2kama.todolist.common.implicits.OptionOps.OptionOps
 
   "toTry" - {
     "引数なし" - {

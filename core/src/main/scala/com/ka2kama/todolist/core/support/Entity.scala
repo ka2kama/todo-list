@@ -5,11 +5,11 @@ import scala.reflect.ClassTag
 private[core] trait Entity {
   type EntityType <: Entity
   type IdType <: EntityId
-  val id: IdType
+  def id: IdType
 
   protected val tag: ClassTag[EntityType]
 
-  def canEqual(other: Any): Boolean = tag.runtimeClass.isInstance(other)
+  final def canEqual(other: Any): Boolean = tag.runtimeClass.isInstance(other)
 
   override def equals(other: Any): Boolean = other match {
     case tag(that) => (that canEqual this) && id == that.id

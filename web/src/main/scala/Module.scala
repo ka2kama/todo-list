@@ -1,8 +1,7 @@
 import com.ka2kama.todolist.core.CoreModule
 import net.codingwell.scalaguice.ScalaModule
 
-/**
-  * Sets up custom components for Play.
+/** Sets up custom components for Play.
   *
   * https://www.playframework.com/documentation/latest/ScalaDependencyInjection
   */
