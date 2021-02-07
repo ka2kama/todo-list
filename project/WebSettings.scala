@@ -1,4 +1,4 @@
-import play.sbt.PlayImport.evolutions
+import play.sbt.PlayImport.{evolutions, guice}
 import play.sbt.routes.RoutesKeys
 import sbt.Keys.{libraryDependencies, name}
 import sbt._
@@ -10,6 +10,7 @@ object WebSettings {
 
   object Dependencies {
     val dependencies = Seq(
+      guice,
       evolutions,
       "org.scalatestplus.play" %% "scalatestplus-play" % Version.scalaTestPlusPlayVersion % Test,
     )
