@@ -4,19 +4,19 @@ import sbt._
 
 object BaseSettings {
   object Version {
-    val scalaVersion      = "2.13.4"
-    val scalaTestVersion  = "3.2.2"
-    val catsVersion       = "2.3.1"
-    val monixVersion      = "3.3.0"
-    val enumeratumVersion = "1.6.1"
+    lazy val scalaVersion      = "2.13.4"
+    lazy val scalaTestVersion  = "3.2.2"
+    lazy val catsVersion       = "2.3.1"
+    lazy val monixVersion      = "3.3.0"
+    lazy val enumeratumVersion = "1.6.1"
 
-    val scalaGuiceVersion   = "4.2.6"
-    val logbackVersion      = "1.2.3"
-    val scalaLoggingVersion = "3.9.2"
+    lazy val scalaGuiceVersion   = "4.2.6"
+    lazy val logbackVersion      = "1.2.3"
+    lazy val scalaLoggingVersion = "3.9.2"
   }
 
   object Dependencies {
-    val dependencies = Seq(
+    lazy val dependencies = Seq(
       "org.scalactic" %% "scalactic"  % Version.scalaTestVersion,
       "org.scalatest" %% "scalatest"  % Version.scalaTestVersion % "test",
       "org.typelevel" %% "cats-core"  % Version.catsVersion,

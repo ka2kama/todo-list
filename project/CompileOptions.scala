@@ -1,5 +1,5 @@
 object CompileOptions {
-  val compileOptions = Seq(
+  lazy val compileOptions = Seq(
     "-encoding",
     "UTF-8",
     "-deprecation",

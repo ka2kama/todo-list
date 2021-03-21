@@ -6,6 +6,7 @@ import monix.execution.Scheduler.Implicits.global
 import play.api.Environment
 import play.api.mvc._
 import com.ka2kama.todolist.web.support.json.JsonSupport._
+import monix.eval.Task
 import play.api.libs.json.Json
 
 import javax.inject.Inject
@@ -28,9 +29,10 @@ final class ListController @Inject() (listService: ListService, cc: ControllerCo
     todo.fold(NotFound: Result)(x => Ok(Json.toJson(x)))
   }
 
-  def stream: Action[AnyContent] = Action {
+  def stream: Action[AnyContent] = ActionAsync {
     logger.info("stream: ")
-
-    Ok.sendFile(Environment.simple().getFile("/tmp/fileToServe.pdf"))
+    Task {
+      Ok.sendFile(Environment.simple().getFile("/tmp/sample.pdf"))
+    }
   }
 }

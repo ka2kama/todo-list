@@ -10,7 +10,7 @@ import javax.inject.Inject
 abstract class TodoBaseController @Inject() (cc: ControllerComponents)
     extends AbstractController(cc)
     with TodoBaseControllerOps
-    with Logging {}
+    with Logging
 
 trait TodoBaseControllerOps { self: TodoBaseController =>
   def ActionAsync[A <: Result](task: Task[A]): Action[AnyContent] = Action.async {

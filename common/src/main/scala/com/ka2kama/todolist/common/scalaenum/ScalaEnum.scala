@@ -2,95 +2,109 @@ package com.ka2kama.todolist.common.scalaenum
 
 import enumeratum.values._
 
-/** [[enumeratum.Enum]]および[[enumeratum.values.ValueEnum]]統一用の基底クラス。
-  *
-  * @tparam EntryType 列挙メンバーの型
-  */
+/**
+ * [[enumeratum.Enum]]および[[enumeratum.values.ValueEnum]]統一用の基底クラス。
+ *
+ * @tparam EntryType 列挙メンバーの型
+ */
 sealed trait ScalaEnumBase[EntryType <: ScalaEnumEntryBase] {
 
-  /** 列挙されているobjectを列挙順に格納した[[IndexedSeq]]
-    * [[enumeratum.Enum]]および[[enumeratum.values.ValueEnum]]のそれぞれに
-    *  同名メソッドが宣言されているので、ここで統合する
-    * @return 列挙されているobjectを列挙順に格納した[[IndexedSeq]]
-    */
+  /**
+   * 列挙されているobjectを列挙順に格納した[[IndexedSeq]]
+   * [[enumeratum.Enum]]および[[enumeratum.values.ValueEnum]]のそれぞれに
+   *  同名メソッドが宣言されているので、ここで統合する
+   * @return 列挙されているobjectを列挙順に格納した[[IndexedSeq]]
+   */
   def values: IndexedSeq[EntryType]
 
-  /** 列挙されているobjectの数
-    */
+  /**
+   * 列挙されているobjectの数
+   */
   lazy final val size: Int = values.size
 
-  /** 列挙のメンバー名を表す文字列から対象のオブジェクトを取得する
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー
-    * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
-    */
+  /**
+   * 列挙のメンバー名を表す文字列から対象のオブジェクトを取得する
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー
+   * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
+   */
   def withName(name: String): EntryType
 
-  /** 列挙のメンバー名を表す文字列から対象のオブジェクトを取得する
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー。存在しなければNone
-    */
+  /**
+   * 列挙のメンバー名を表す文字列から対象のオブジェクトを取得する
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー。存在しなければNone
+   */
   def withNameOption(name: String): Option[EntryType]
 
-  /** 列挙のメンバー名を表す文字列(大文字・小文字問わず)から対象のオブジェクトを取得する
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー
-    * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(大文字・小文字問わず)から対象のオブジェクトを取得する
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー
+   * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
+   */
   def withNameInsensitive(name: String): EntryType
 
-  /** 列挙のメンバー名を表す文字列(大文字・小文字問わず)から対象のオブジェクトを取得する
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー。存在しなければNone
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(大文字・小文字問わず)から対象のオブジェクトを取得する
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー。存在しなければNone
+   */
   def withNameInsensitiveOption(name: String): Option[EntryType]
 
-  /** 列挙のメンバー名を表す文字列(大文字のみの文字列)から対象のオブジェクトを取得する
-    * 同名でも引数の文字列に小文字が使われている場合は一致しない
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー
-    * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(大文字のみの文字列)から対象のオブジェクトを取得する
+   * 同名でも引数の文字列に小文字が使われている場合は一致しない
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー
+   * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
+   */
   def withNameUppercaseOnly(name: String): EntryType
 
-  /** 列挙のメンバー名を表す文字列(大文字のみの文字列)から対象のオブジェクトを取得する
-    * 同名でも引数の文字列に小文字が使われている場合は一致しない
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー。存在しなければNone
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(大文字のみの文字列)から対象のオブジェクトを取得する
+   * 同名でも引数の文字列に小文字が使われている場合は一致しない
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー。存在しなければNone
+   */
   def withNameUppercaseOnlyOption(name: String): Option[EntryType]
 
-  /** 列挙のメンバー名を表す文字列(小文字のみの文字列)から対象のオブジェクトを取得する
-    * 同名でも引数の文字列に大文字が使われている場合は一致しない
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー
-    * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(小文字のみの文字列)から対象のオブジェクトを取得する
+   * 同名でも引数の文字列に大文字が使われている場合は一致しない
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー
+   * @throws NoSuchElementException 文字列に該当する列挙メンバーが見つからなかった場合
+   */
   def withNameLowercaseOnly(name: String): EntryType
 
-  /** 列挙のメンバー名を表す文字列(小文字のみの文字列)から対象のオブジェクトを取得する
-    * 同名でも引数の文字列に大文字が使われている場合は一致しない
-    * @param name 列挙のメンバー名を表す文字列
-    * @return 同名の列挙メンバー。存在しなければNone
-    */
+  /**
+   * 列挙のメンバー名を表す文字列(小文字のみの文字列)から対象のオブジェクトを取得する
+   * 同名でも引数の文字列に大文字が使われている場合は一致しない
+   * @param name 列挙のメンバー名を表す文字列
+   * @return 同名の列挙メンバー。存在しなければNone
+   */
   def withNameLowercaseOnlyOption(name: String): Option[EntryType]
 
-  /** 引数の列挙メンバーの列挙位置を取得する
-    * @param member 列挙メンバー
-    * @return 引数の列挙メンバーの列挙位置。見つからなければ-1
-    */
+  /**
+   * 引数の列挙メンバーの列挙位置を取得する
+   * @param member 列挙メンバー
+   * @return 引数の列挙メンバーの列挙位置。見つからなければ-1
+   */
   def indexOf(member: EntryType): Int
 
-  /** ScalaEnumEntryの拡張メソッドで自身の属するenumオブジェクトにアクセスするための暗黙の値
-    */
+  /**
+   * ScalaEnumEntryの拡張メソッドで自身の属するenumオブジェクトにアクセスするための暗黙の値
+   */
   implicit final val implicitValueForScalaEnumEntryOps: ScalaEnumBase[EntryType] = this
 }
 
-/** [[enumeratum.values.ValueEnum]]統一用の基底クラス。各メンバーはvalueという名前の特定の値を持つ
-  * [[enumeratum.Enum]]で定義されているメソッド群をこちらでも同じ実装で定義することで、利用側が同名メソッドを扱えるようにする
-  * @tparam ValueType valueの型
-  * @tparam EntryType 列挙メンバーの型
-  */
+/**
+ * [[enumeratum.values.ValueEnum]]統一用の基底クラス。各メンバーはvalueという名前の特定の値を持つ
+ * [[enumeratum.Enum]]で定義されているメソッド群をこちらでも同じ実装で定義することで、利用側が同名メソッドを扱えるようにする
+ * @tparam ValueType valueの型
+ * @tparam EntryType 列挙メンバーの型
+ */
 sealed trait ValueScalaEnum[ValueType, EntryType <: ValueScalaEnumEntry[
   ValueType
 ] with ValueEnumEntry[ValueType]]
@@ -138,10 +152,11 @@ sealed trait ValueScalaEnum[ValueType, EntryType <: ValueScalaEnumEntry[
   private[this] lazy val existingEntryNamesString = values.map(_.name).mkString(", ")
 }
 
-/** valueを持たないプレーンな列挙型用のtrait
-  *  [[enumeratum.Enum]]の各種メソッドのfinal化も同時に行う
-  * @tparam A 列挙メンバーの型
-  */
+/**
+ * valueを持たないプレーンな列挙型用のtrait
+ *  [[enumeratum.Enum]]の各種メソッドのfinal化も同時に行う
+ * @tparam A 列挙メンバーの型
+ */
 trait ScalaEnum[A <: ScalaEnumEntry] extends enumeratum.Enum[A] with ScalaEnumBase[A] {
 
   override final def withName(name: String): A               = super.withName(name)
@@ -168,9 +183,7 @@ trait LongScalaEnum[A <: LongScalaEnumEntry] extends LongEnum[A] with ValueScala
 trait ShortScalaEnum[A <: ShortScalaEnumEntry] extends ShortEnum[A] with ValueScalaEnum[Short, A]
 
 /** valueとしてString値を持つ列挙型用のtrait */
-trait StringScalaEnum[A <: StringScalaEnumEntry]
-    extends StringEnum[A]
-    with ValueScalaEnum[String, A]
+trait StringScalaEnum[A <: StringScalaEnumEntry] extends StringEnum[A] with ValueScalaEnum[String, A]
 
 /** valueとしてByte値を持つ列挙型用のtrait */
 trait ByteScalaEnum[A <: ByteScalaEnumEntry] extends ByteEnum[A] with ValueScalaEnum[Byte, A]
