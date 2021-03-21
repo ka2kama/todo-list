@@ -1,10 +1,10 @@
 import org.scalafmt.sbt.ScalafmtPlugin.autoImport.scalafmtConfig
 import sbt.Keys._
-import sbt._
+import sbt.{Def, _}
 
 object BaseSettings {
   object Version {
-    lazy val scalaVersion      = "2.13.4"
+    lazy val scalaVersion      = "2.13.5"
     lazy val scalaTestVersion  = "3.2.2"
     lazy val catsVersion       = "2.3.1"
     lazy val monixVersion      = "3.3.0"
@@ -25,7 +25,7 @@ object BaseSettings {
     )
   }
 
-  lazy val settings = Seq(
+  lazy val settings: Seq[Def.Setting[_]] = Def.settings(
     organization := "com.ka2kama",
     version := "1.0-SNAPSHOT",
     scalaVersion := Version.scalaVersion,

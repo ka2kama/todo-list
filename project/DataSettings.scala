@@ -1,11 +1,11 @@
 import sbt.Keys.{libraryDependencies, name}
-import sbt._
+import sbt.{Def, _}
 
 object DataSettings {
   object Version {
-    lazy val h2Version = "1.4.200"
+    lazy val h2Version         = "1.4.200"
     lazy val postgtrsqlVersion = "42.2.18"
-    lazy val playSlickVersion = "5.0.0"
+    lazy val playSlickVersion  = "5.0.0"
   }
 
   object Dependencies {
@@ -16,13 +16,13 @@ object DataSettings {
       "com.h2database"              % "h2"                    % Version.h2Version,
       "org.postgresql"              % "postgresql"            % Version.postgtrsqlVersion,
       "com.typesafe.play"          %% "play-slick"            % Version.playSlickVersion,
-      "com.typesafe.play"          %% "play-slick-evolutions" % Version.playSlickVersion
+      "com.typesafe.play"          %% "play-slick-evolutions" % Version.playSlickVersion,
     )
   }
 
-  lazy val settings =
+  lazy val settings: Seq[Def.Setting[_]] =
     BaseSettings.settings ++ Seq(
       name := "todo-list-data",
-      libraryDependencies ++= Dependencies.dependencies
+      libraryDependencies ++= Dependencies.dependencies,
     )
 }

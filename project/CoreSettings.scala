@@ -1,10 +1,11 @@
 import sbt.Keys.{libraryDependencies, name}
-import sbt._
+import sbt.{Def, _}
 
 object CoreSettings {
+  //noinspection TypeAnnotation
   object Version {
-    lazy val scalaGuiceVersion = BaseSettings.Version.scalaGuiceVersion
-    lazy val logbackVersion = BaseSettings.Version.logbackVersion
+    lazy val scalaGuiceVersion   = BaseSettings.Version.scalaGuiceVersion
+    lazy val logbackVersion      = BaseSettings.Version.logbackVersion
     lazy val scalaLoggingVersion = BaseSettings.Version.scalaLoggingVersion
   }
 
@@ -12,13 +13,13 @@ object CoreSettings {
     lazy val dependencies = Seq(
       "net.codingwell"             %% "scala-guice"     % Version.scalaGuiceVersion,
       "ch.qos.logback"              % "logback-classic" % Version.logbackVersion,
-      "com.typesafe.scala-logging" %% "scala-logging"   % Version.scalaLoggingVersion
+      "com.typesafe.scala-logging" %% "scala-logging"   % Version.scalaLoggingVersion,
     )
   }
 
-  lazy val settings =
+  lazy val settings: Seq[Def.Setting[_]] =
     BaseSettings.settings ++ Seq(
       name := "todo-list-core",
-      libraryDependencies ++= Dependencies.dependencies
+      libraryDependencies ++= Dependencies.dependencies,
     )
 }
