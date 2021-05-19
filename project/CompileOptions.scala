@@ -9,6 +9,7 @@ object CompileOptions {
     "-Ywarn-dead-code",
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard",
-    "-Xfatal-warnings",
+    // "-Xfatal-warnings",
+    "-Wconf:cat=lint-byname-implicit:s,any:e",
   )
 }

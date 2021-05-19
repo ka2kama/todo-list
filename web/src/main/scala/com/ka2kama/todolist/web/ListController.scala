@@ -2,14 +2,14 @@ package com.ka2kama.todolist.web
 
 import com.ka2kama.todolist.core.domain.list.ListService
 import com.ka2kama.todolist.core.domain.todo.model.TodoId
+import io.circe.generic.auto._
+import io.circe.syntax._
+import monix.eval.Task
+
+import javax.inject.Inject
 import monix.execution.Scheduler.Implicits.global
 import play.api.Environment
 import play.api.mvc._
-import com.ka2kama.todolist.web.support.json.JsonSupport._
-import monix.eval.Task
-import play.api.libs.json.Json
-
-import javax.inject.Inject
 
 final class ListController @Inject() (listService: ListService, cc: ControllerComponents)
     extends TodoBaseController(cc) {
@@ -17,16 +17,19 @@ final class ListController @Inject() (listService: ListService, cc: ControllerCo
   def list: Action[AnyContent] = ActionAsync {
     logger.info("list: ")
 
-    val todos = listService.list
-    todos.map(x => Ok(Json.toJson(x)))
+    val todosT     = listService.list
+    val todosJsonT = todosT.map(_.asJson)
+
+    todosJsonT.map(Ok(_))
   }
 
   def get(id: Long): Action[AnyContent] = ActionAsync {
     logger.info("get: ")
 
-    val todo = listService.get(TodoId(id))
+    val todo     = listService.get(TodoId(id))
+    val todoJson = todo.map(_.asJson)
 
-    todo.fold(NotFound: Result)(x => Ok(Json.toJson(x)))
+    todoJson.fold(NotFound: Result)(Ok(_))
   }
 
   def stream: Action[AnyContent] = ActionAsync {
