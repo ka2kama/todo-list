@@ -10,7 +10,7 @@ object CoreSettings {
   }
 
   object Dependencies {
-    lazy val dependencies = Seq(
+    lazy val dependencies: Seq[ModuleID] = Seq(
       "net.codingwell"             %% "scala-guice"     % Version.scalaGuiceVersion,
       "ch.qos.logback"              % "logback-classic" % Version.logbackVersion,
       "com.typesafe.scala-logging" %% "scala-logging"   % Version.scalaLoggingVersion,

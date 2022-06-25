@@ -1,9 +1,9 @@
 package com.ka2kama.todolist.core.domain.todo.model
 
-import com.ka2kama.todolist.common.scalaenum.{IntScalaEnum, IntScalaEnumEntry}
+import enumeratum.values.{IntEnum, IntEnumEntry}
 
-sealed abstract class State(val value: Int) extends IntScalaEnumEntry
-object State extends IntScalaEnum[State] {
+sealed abstract class State(val value: Int) extends IntEnumEntry
+object State extends IntEnum[State] {
   case object Unfinished extends State(0)
   case object Doing      extends State(1)
   case object Done       extends State(2)

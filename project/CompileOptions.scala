@@ -1,5 +1,5 @@
 object CompileOptions {
-  lazy val compileOptions = Seq(
+  lazy val compileOptions: Seq[String] = Seq(
     "-encoding",
     "UTF-8",
     "-deprecation",
@@ -9,7 +9,6 @@ object CompileOptions {
     "-Ywarn-dead-code",
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard",
-    // "-Xfatal-warnings",
-    "-Wconf:cat=lint-byname-implicit:s,any:e",
+    "-Wconf:cat=lint-byname-implicit:s",
   )
 }

@@ -11,7 +11,7 @@ private[data] final class TodoDaoOnMemory extends TodoDao {
   )
 
   override def findAll: Task[Seq[TodoRecord]] = Task {
-    todosMap.values.toList
+    todosMap.values.toVector
   }
 
   override def findById(id: Long): Task[Option[TodoRecord]] = Task {

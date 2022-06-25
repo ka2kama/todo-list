@@ -6,12 +6,12 @@ import sbt.{Def, _}
 object WebSettings {
   object Version {
     lazy val scalaTestPlusPlayVersion = "5.1.0"
-    lazy val circeVersion             = "0.13.0"
-    lazy val playCirceVersion         = "2812.0"
+    lazy val circeVersion             = "0.14.2"
+    lazy val playCirceVersion         = "2814.2"
   }
 
   object Dependencies {
-    lazy val dependencies = Seq(
+    lazy val dependencies: Seq[ModuleID] = Seq(
       guice,
       evolutions,
       "org.scalatestplus.play" %% "scalatestplus-play" % Version.scalaTestPlusPlayVersion % Test,
